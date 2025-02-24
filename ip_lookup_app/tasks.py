@@ -106,92 +106,92 @@ def sync_aws_data():
                     except Exception as e:
                         logging.error(f"Error syncing EC2 instance {instance_id}: {e}", exc_info=True)
         #
-        # # ==================== 同步 VPC 数据 ====================
-        # vpcs = ec2_client.describe_vpcs()
-        # for vpc in vpcs['Vpcs']:
-        #     try:
-        #         vpc_id = vpc['VpcId']
-        #         vpc_name = next((tag["Value"] for tag in vpc.get("Tags", []) if tag["Key"] == "Name"), "")
-        #         ipv4_cidr = vpc["CidrBlock"]
-        #         owner_id = vpc.get("OwnerId", "")
-        #
-        #         # 获取主路由表 ID
-        #         main_route_table_id = ''
-        #         route_tables = ec2_client.describe_route_tables(Filters=[
-        #             {'Name': 'vpc-id', 'Values': [vpc_id]},
-        #             {'Name': 'association.main', 'Values': ['true']}
-        #         ])
-        #         if route_tables['RouteTables']:
-        #             main_route_table_id = route_tables['RouteTables'][0]['RouteTableId']
-        #
-        #         # 获取主网络 ACL ID
-        #         main_network_acl_id = ''
-        #         network_acls = ec2_client.describe_network_acls(Filters=[
-        #             {'Name': 'vpc-id', 'Values': [vpc_id]}
-        #         ])
-        #         for network_acl in network_acls.get('NetworkAcls', []):
-        #             if network_acl.get('IsDefault', False):
-        #                 main_network_acl_id = network_acl['NetworkAclId']
-        #                 break
-        #
-        #         AWSVPC.objects.update_or_create(
-        #             vpc_id=vpc_id,
-        #             defaults={
-        #                 'name': vpc_name,
-        #                 'ipv4_cidr': ipv4_cidr,
-        #                 'owner_id': owner_id,
-        #                 'main_route_table': main_route_table_id,
-        #                 'main_network_acl': main_network_acl_id,
-        #                 'region': region
-        #             }
-        #         )
-        #         print(f"Synced VPC: {vpc_id} ({vpc_name})")
-        #
-        #     except Exception as e:
-        #         logging.error(f"Error syncing VPC {vpc_id}: {e}", exc_info=True)
-        #
-        # # ==================== 同步子网数据 ====================
-        # subnets = ec2_client.describe_subnets()
-        # for subnet in subnets['Subnets']:
-        #     subnet_name = next((tag["Value"] for tag in subnet.get("Tags", []) if tag["Key"] == "Name"), "")
-        #     AWSSubnet.objects.update_or_create(
-        #         subnet_id=subnet['SubnetId'],
-        #         defaults={
-        #             'name': subnet_name,
-        #             'vpc_id': subnet['VpcId'],
-        #             'ipv4_cidr': subnet['CidrBlock'],
-        #             'available_ipv4_address': subnet['AvailableIpAddressCount'],
-        #             'region': region
-        #         }
-        #     )
-        #
-        # # ==================== 同步路由表数据 ====================
-        # route_tables = ec2_client.describe_route_tables()
-        # for route_table in route_tables['RouteTables']:
-        #     try:
-        #         route_table_name = next((tag["Value"] for tag in route_table.get("Tags", []) if tag["Key"] == "Name"), "N/A")
-        #         new_route_table, _ = AWSRouteTable.objects.update_or_create(
-        #             route_table_id=route_table['RouteTableId'],
-        #             defaults={
-        #                 'name': route_table_name,
-        #                 'vpc_id': route_table['VpcId'],
-        #                 'region': region
-        #             }
-        #         )
-        #
-        #         # 处理路由条目
-        #         for route in route_table.get('Routes', []):
-        #             AWSRoute.objects.update_or_create(
-        #                 route_table=new_route_table,
-        #                 destination_cidr_block=route.get('DestinationCidrBlock', 'N/A'),
-        #                 defaults={
-        #                     'target': route.get('GatewayId', route.get('NatGatewayId', 'N/A')),
-        #                     'status': route.get('State', 'N/A'),
-        #                     'region': region
-        #                 }
-        #             )
-        #     except Exception as e:
-        #         logging.error(f"Error syncing route table {route_table['RouteTableId']} in region {region}: {e}", exc_info=True)
+        # ==================== 同步 VPC 数据 ====================
+        vpcs = ec2_client.describe_vpcs()
+        for vpc in vpcs['Vpcs']:
+            try:
+                vpc_id = vpc['VpcId']
+                vpc_name = next((tag["Value"] for tag in vpc.get("Tags", []) if tag["Key"] == "Name"), "")
+                ipv4_cidr = vpc["CidrBlock"]
+                owner_id = vpc.get("OwnerId", "")
+
+                # 获取主路由表 ID
+                main_route_table_id = ''
+                route_tables = ec2_client.describe_route_tables(Filters=[
+                    {'Name': 'vpc-id', 'Values': [vpc_id]},
+                    {'Name': 'association.main', 'Values': ['true']}
+                ])
+                if route_tables['RouteTables']:
+                    main_route_table_id = route_tables['RouteTables'][0]['RouteTableId']
+
+                # 获取主网络 ACL ID
+                main_network_acl_id = ''
+                network_acls = ec2_client.describe_network_acls(Filters=[
+                    {'Name': 'vpc-id', 'Values': [vpc_id]}
+                ])
+                for network_acl in network_acls.get('NetworkAcls', []):
+                    if network_acl.get('IsDefault', False):
+                        main_network_acl_id = network_acl['NetworkAclId']
+                        break
+
+                AWSVPC.objects.update_or_create(
+                    vpc_id=vpc_id,
+                    defaults={
+                        'name': vpc_name,
+                        'ipv4_cidr': ipv4_cidr,
+                        'owner_id': owner_id,
+                        'main_route_table': main_route_table_id,
+                        'main_network_acl': main_network_acl_id,
+                        'region': region
+                    }
+                )
+                print(f"Synced VPC: {vpc_id} ({vpc_name})")
+
+            except Exception as e:
+                logging.error(f"Error syncing VPC {vpc_id}: {e}", exc_info=True)
+
+        # ==================== 同步子网数据 ====================
+        subnets = ec2_client.describe_subnets()
+        for subnet in subnets['Subnets']:
+            subnet_name = next((tag["Value"] for tag in subnet.get("Tags", []) if tag["Key"] == "Name"), "")
+            AWSSubnet.objects.update_or_create(
+                subnet_id=subnet['SubnetId'],
+                defaults={
+                    'name': subnet_name,
+                    'vpc_id': subnet['VpcId'],
+                    'ipv4_cidr': subnet['CidrBlock'],
+                    'available_ipv4_address': subnet['AvailableIpAddressCount'],
+                    'region': region
+                }
+            )
+
+        # ==================== 同步路由表数据 ====================
+        route_tables = ec2_client.describe_route_tables()
+        for route_table in route_tables['RouteTables']:
+            try:
+                route_table_name = next((tag["Value"] for tag in route_table.get("Tags", []) if tag["Key"] == "Name"), "N/A")
+                new_route_table, _ = AWSRouteTable.objects.update_or_create(
+                    route_table_id=route_table['RouteTableId'],
+                    defaults={
+                        'name': route_table_name,
+                        'vpc_id': route_table['VpcId'],
+                        'region': region
+                    }
+                )
+
+                # 处理路由条目
+                for route in route_table.get('Routes', []):
+                    AWSRoute.objects.update_or_create(
+                        route_table=new_route_table,
+                        destination_cidr_block=route.get('DestinationCidrBlock', 'N/A'),
+                        defaults={
+                            'target': route.get('GatewayId', route.get('NatGatewayId', 'N/A')),
+                            'status': route.get('State', 'N/A'),
+                            'region': region
+                        }
+                    )
+            except Exception as e:
+                logging.error(f"Error syncing route table {route_table['RouteTableId']} in region {region}: {e}", exc_info=True)
 
         # ==================== 同步安全组 + 规则 ====================
         try:

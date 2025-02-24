@@ -106,3 +106,6 @@ IP 查询：
 
 数据展示：
 返回的 JSON 数据包含字段如 instance_id、instance_name、private_ips、public_ips、security_groups（以列表返回安全组 ID）、vpc_id、subnet_id、instance_type、state、region，维护人员可以根据需要扩展展示。
+
+
+账户密码配置在config.py文件下，格式为：
