@@ -1,0 +1,108 @@
+ip_lookup_project/                   # Django 项目根目录
+├── ip_lookup_project/               # 项目配置文件目录
+│   ├── settings.py                  # 项目全局配置（包含模板、静态文件、数据库、Celery 等配置）
+│   ├── urls.py                      # 全局 URL 配置（引入各个应用的 URL）
+│   └── wsgi.py                     # WSGI 启动文件
+│
+├── ip_lookup_app/                   # 主要应用目录
+│   ├── __init__.py
+│   ├── models.py                    # 数据模型：定义 AWSVPC、AWSEC2Instance、AWSSubnet、AWSRouteTable、AWSRoute、AWSSecurityGroup 等
+│   ├── views.py                     # 视图函数和类：包括 IPLookupView、AWSDataView、AzureDataView、页面渲染函数等
+│   ├── serializers.py               # DRF 序列化器：为模型数据提供 JSON 序列化支持（如 AWSVPCSerializer 等）
+│   ├── tasks.py                     # 异步任务及数据同步逻辑：例如 sync_aws_data，用于从 AWS 同步 EC2、VPC、子网、路由表及安全组数据
+│   ├── urls.py                      # 应用级 URL 配置：将 API 路径（如 /api/ip-lookup/）与视图关联
+│   └── ...                          # 其他辅助模块（如数据库路由、管理后台定制等）
+│
+├── templates/                       # 模板目录
+│   ├── ip_lookup.html               # IP 查询页面（包含前端 JS，用于发送 AJAX 请求到 API）
+│   ├── aws.html                     # AWS 相关页面（如果需要展示数据）
+│   ├── azure.html                   # Azure 相关页面（如果需要展示数据）
+│   └── ...                          # 其他 HTML 模板
+│
+├── static/                          # 静态文件目录（CSS、JS、图片等）
+│   └── ...
+│
+├── manage.py                        # Django 管理脚本
+└── config.py                        # Django 程序配置管理
+
+
+主要模块说明
+1. 数据模型（models.py）
+AWSVPC
+存储 VPC 信息，包括 vpc_id、名称、CIDR、owner、主路由表、主网络 ACL 及 region 字段。
+AWSEC2Instance
+存储 EC2 实例数据，字段包括 instance_id、名称、私有 IP（private_ips，存储为 JSON 或字符串形式的列表）、公网 IP（public_ips）、所属 VPC、子网、实例类型、状态、区域及与安全组的 ManyToMany 关联。
+AWSSubnet
+存储子网信息，包含子网 ID、名称、所属 VPC（存储为外键或字符串标识，示例中采用“vpc_id|vpc_name”的格式）、CIDR、可用 IP 数量、关联路由表（格式为 “route_table_id|route_table_name”）及 region 字段。
+AWSRouteTable 与 AWSRoute
+分别存储路由表基本信息和具体路由条目。
+AWSSecurityGroup
+用于存储安全组信息，并与 AWSEC2Instance 建立 ManyToMany 关系。
+2. 视图层（views.py）
+IPLookupView (APIView)
+
+用户访问 /api/ip-lookup/?ip=<IP> 时，视图首先解析用户输入（支持单个 IP 或 CIDR），然后优先查询 EC2 实例。
+在 EC2 部分，代码对 private_ips 和 public_ips 进行转换（如果以字符串存储，则使用 eval() 转换为列表），并将两部分合并后逐个匹配。
+若在 EC2 数据中找到匹配项，则返回完整的 EC2 信息（包括实例 ID、名称、私有 IP、公网 IP、安全组（序列化为列表）、VPC、子网、实例类型、状态和区域）。
+如果没有匹配的 EC2 实例，则遍历 AWS 子网数据，判断输入 IP 是否在某个子网的 CIDR 范围内，并返回子网及 VPC 信息。
+如果两者均未匹配，则返回错误提示（例如触发数据同步）。
+AWSDataView 与 AzureDataView
+用于返回对应数据表的 JSON 数据，方便调试和数据展示。
+
+页面渲染函数
+如 ip_lookup_page、aws_page、azure_page，用于渲染各个 HTML 模板页面，便于不熟悉 API 的维护人员使用。
+
+3. 异步任务和数据同步（tasks.py）
+sync_aws_data
+通过调用 AWS 的 boto3 API 同步各个区域的 EC2 实例、VPC、子网、路由表、安全组等数据。
+对 EC2 实例部分，会先获取各个 NetworkInterface 上的 IP 数据，处理 private_ips、public_ips，并通过 update_or_create 存入数据库。
+对于安全组（ManyToMany 关系），会先获取或创建相应的 AWSSecurityGroup 对象，再调用 ec2_instance.security_groups.set(sg_instances) 更新关联。
+同步任务通常会通过 Celery 调度，也可以手动执行。
+4. 模板（ip_lookup.html 等）
+ip_lookup.html
+提供一个简单的表单页面，维护人员可以输入 IP 地址，页面使用 AJAX 调用 /api/ip-lookup/ API，并以表格等形式展示返回结果。
+
+
+
+使用说明
+启动项目
+安装依赖
+确保你已安装 Django、Django REST Framework、boto3 以及 Celery（如果使用异步任务）。
+
+配置 settings.py
+
+数据库、静态文件、模板路径等基本配置。
+配置 Celery 相关信息（如使用 Redis 作为 Broker）。
+配置 AWS 凭证（可以放在环境变量中，或者在任务代码中配置）。
+
+
+数据库迁移
+python manage.py makemigrations
+python manage.py migrate
+
+
+python manage.py runserver
+访问 http://127.0.0.1:8000/ip-lookup/ 可查看查询页面。
+通过 API 访问 http://127.0.0.1:8000/api/ip-lookup/?ip=10.224.96.8 进行查询。
+
+数据同步
+通过 Celery 或手动调用 sync_aws_data 同步 AWS 数据：
+
+python manage.py shell
+>>> from ip_lookup_app.tasks import sync_aws_data
+>>> sync_aws_data()
+同步完成后，数据库中的 EC2、VPC、子网等数据将更新。
+
+
+查询功能
+IP 查询：
+用户可以在 ip_lookup.html 页面输入任意 IP 地址（私有、公网或其他），系统将：
+
+解析用户输入的 IP 网段。
+先在 EC2 数据中检查（匹配所有 private_ips 与 public_ips），如果匹配，则返回该 EC2 实例的详细信息。
+如果没有匹配的 EC2，再在子网数据中匹配，返回相关 VPC、子网、路由表信息。
+如果都未匹配，则提示“IP not found. Data synchronization triggered.”，并可能触发同步任务。
+
+
+数据展示：
+返回的 JSON 数据包含字段如 instance_id、instance_name、private_ips、public_ips、security_groups（以列表返回安全组 ID）、vpc_id、subnet_id、instance_type、state、region，维护人员可以根据需要扩展展示。
