@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 from celery.schedules import crontab
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'ip_lookup_project.disable_trace_track.disable_trace_track_middleware',
+    'ip_lookup_project.firewall.ip_whitelist_middleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
