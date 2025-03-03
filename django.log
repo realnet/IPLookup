@@ -8550,3 +8550,25 @@ No EC2 match found. Checking AWS subnets...
 Invalid CIDR in AWSSubnet: 10.227.231.0/28
 No match found in EC2 or AWS subnets.
 Not Found: /api/ip-lookup/
+Watching for file changes with StatReloader
+Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\Python39\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Program Files\Python39\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_app\views.py", line 242, in index_page
+    return render(request, 'indexbak.html')
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: indexbak.html
+Not Found: /favicon.ico
+Watching for file changes with StatReloader

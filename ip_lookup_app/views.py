@@ -239,7 +239,7 @@ def azure_page(request):
 
 def index_page(request):
     # 返回 indexbak.html 模板
-    return render(request, 'indexbak.html')
+    return render(request, 'index.html')
 
 @api_view(['GET'])
 def aws_ec2_data(request):
