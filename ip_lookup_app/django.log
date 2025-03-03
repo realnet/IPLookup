@@ -6662,3 +6662,54 @@ Traceback (most recent call last):
   File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\base.py", line 567, in __init__
     raise TypeError(
 TypeError: AWSSecurityGroupRule() got unexpected keyword arguments: 'source'
+Failed to sync security groups in ap-southeast-1: AWSSecurityGroupRule() got unexpected keyword arguments: 'description'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\AWS\sync_aws.py", line 243, in security_group_rules
+    self._process_security_group(sg)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\AWS\sync_aws.py", line 272, in _process_security_group
+    self._process_rules(sg_obj, perm, 'outbound')
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\AWS\sync_aws.py", line 282, in _process_rules
+    self._create_rule(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\AWS\sync_aws.py", line 301, in _create_rule
+    AWSSecurityGroupRule.objects.create(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 656, in create
+    obj = self.model(**kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\base.py", line 567, in __init__
+    raise TypeError(
+TypeError: AWSSecurityGroupRule() got unexpected keyword arguments: 'description'
+Failed to sync security groups in ap-east-1: AWSSecurityGroupRule() got unexpected keyword arguments: 'description'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\AWS\sync_aws.py", line 243, in security_group_rules
+    self._process_security_group(sg)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\AWS\sync_aws.py", line 268, in _process_security_group
+    self._process_rules(sg_obj, perm, 'inbound')
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\AWS\sync_aws.py", line 282, in _process_rules
+    self._create_rule(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\AWS\sync_aws.py", line 301, in _create_rule
+    AWSSecurityGroupRule.objects.create(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 656, in create
+    obj = self.model(**kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\base.py", line 567, in __init__
+    raise TypeError(
+TypeError: AWSSecurityGroupRule() got unexpected keyword arguments: 'description'
+Failed to sync security groups in ap-northeast-1: AWSSecurityGroupRule() got unexpected keyword arguments: 'description'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\AWS\sync_aws.py", line 243, in security_group_rules
+    self._process_security_group(sg)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\AWS\sync_aws.py", line 268, in _process_security_group
+    self._process_rules(sg_obj, perm, 'inbound')
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\AWS\sync_aws.py", line 282, in _process_rules
+    self._create_rule(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\AWS\sync_aws.py", line 301, in _create_rule
+    AWSSecurityGroupRule.objects.create(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 656, in create
+    obj = self.model(**kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\base.py", line 567, in __init__
+    raise TypeError(
+TypeError: AWSSecurityGroupRule() got unexpected keyword arguments: 'description'

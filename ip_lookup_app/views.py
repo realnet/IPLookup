@@ -82,7 +82,7 @@ class IPLookupView(APIView):
                                     pass
 
                         result = {
-                            'cloud': 'AWS',
+                            'cloud': 'tasks',
                             'type': 'EC2',
                             'instance_id': ec2.instance_id,
                             'instance_name': ec2.name,
@@ -151,7 +151,7 @@ class IPLookupView(APIView):
                 logger.error(f"Error processing EC2 instance {ec2.instance_id}: {e}", exc_info=True)
                 continue
 
-        logger.info("No EC2 match found. Checking AWS subnets...")
+        logger.info("No EC2 match found. Checking tasks subnets...")
         # 没匹配 => 查子网
         for subnet in AWSSubnet.objects.all():
             try:
@@ -165,7 +165,7 @@ class IPLookupView(APIView):
 
                     route_table_id, route_table_name = subnet.route_table.split('|')
                     result = {
-                        'cloud': 'AWS',
+                        'cloud': 'tasks',
                         'type': 'Subnet',
                         'vpc_id': vpc_id,
                         'vpc_name': vpc_name,
@@ -174,13 +174,13 @@ class IPLookupView(APIView):
                         'ipv4_cidr': subnet.ipv4_cidr,
                         'route_table': route_table_name
                     }
-                    logger.info(f"Found match in AWS subnet: {subnet.name}, Result: {result}")
+                    logger.info(f"Found match in tasks subnet: {subnet.name}, Result: {result}")
                     return JsonResponse(result, status=status.HTTP_200_OK)
             except ValueError:
                 logger.error(f"Invalid CIDR in AWSSubnet: {subnet.ipv4_cidr}")
                 continue
 
-        logger.info("No match found in EC2 or AWS subnets.")
+        logger.info("No match found in EC2 or tasks subnets.")
         return JsonResponse({'error': 'IP not found. Data synchronization triggered.'},
                             status=status.HTTP_404_NOT_FOUND)
 

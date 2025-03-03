@@ -65,14 +65,11 @@ ROOT_URLCONF = 'ip_lookup_project.urls'
 # Celery配置
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+# Celery 定时任务（需要配合 Celery Beat）
 CELERY_BEAT_SCHEDULE = {
     'sync_aws_data': {
         'task': 'ip_lookup_app.tasks.sync_aws_data',
         'schedule': crontab(hour=17, minute=30),
-    },
-    'sync_azure_data': {
-        'task': 'ip_lookup_app.tasks.sync_azure_data',
-        'schedule': crontab(hour=17, minute=31),
     },
 }
 
