@@ -27,7 +27,7 @@ from .views import (
 )
 
 urlpatterns = [
-    # 主页面：显示 index.html
+    # 主页面：显示 indexbak.html
     path('', index_page, name='index'),
 
     # IP 查询相关
