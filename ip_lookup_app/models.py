@@ -53,12 +53,6 @@ class AWSSecurityGroupRule(models.Model):
 
     def __str__(self):
         return f"{self.security_group.group_id} {self.direction} {self.ip_protocol} {self.from_port}-{self.to_port}"
-# class AWSSecurityGroup(models.Model):
-#     group_id = models.CharField(max_length=50, unique=True)
-#     name = models.CharField(max_length=255, blank=True, null=True)
-#
-#     def __str__(self):
-#         return f"{self.name} ({self.group_id})"
 
 
 class AWSEC2Instance(models.Model):
@@ -144,6 +138,22 @@ class VPCEndpoint(models.Model):
 
     def __str__(self):
         return self.endpoint_id
+
+class Route53Record(models.Model):
+    record_name = models.CharField(max_length=255)
+    record_type = models.CharField(max_length=50)  # 包含多值
+    routing_policy = models.CharField(max_length=200, null=True, blank=True)
+    alias = models.BooleanField(default=False)  # 是否是别名
+    value = models.TextField(null=True, blank=True)  # 可能有多个值，存 JSON 格式
+    ttl = models.IntegerField(null=True, blank=True)
+    hosted_zone_id = models.CharField(max_length=100)  # 关联 Hosted Zone
+    hosted_zone_name = models.CharField(max_length=255)
+    last_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.record_name} ({self.record_type})"
+
+
 
 # Azure模型
 class AzureVirtualNetwork(models.Model):

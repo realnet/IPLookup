@@ -4,8 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .models import AWSSubnet, AWSRouteTable, AWSEC2Instance,VPCEndpoint, AWSSecurityGroup, AWSVPC, AWSElasticIP, AzureSubnet, AzureRouteTable, AzureVirtualNetwork, AzureVnet
-from .serializers import AWSSubnetSerializer, AWSVpcEndpointSerializer, AWSEC2InstanceSerializer, AWSElasticIPSerializer, AWSSecurityGroupSerializer, AWSRouteTableSerializer, AWSVPCSerializer, AzureSubnetSerializer, AzureRouteTableSerializer, AzureVirtualNetworkSerializer, AzureVnetSerializer
+from .models import AWSSubnet, AWSRouteTable, AWSEC2Instance,VPCEndpoint, AWSSecurityGroup, Route53Record,AWSVPC, AWSElasticIP, AzureSubnet, AzureRouteTable, AzureVirtualNetwork, AzureVnet
+from .serializers import AWSSubnetSerializer, AWSVpcEndpointSerializer, AWSEC2InstanceSerializer,AWSRoute53RecordSerializer, AWSElasticIPSerializer, AWSSecurityGroupSerializer, AWSRouteTableSerializer, AWSVPCSerializer, AzureSubnetSerializer, AzureRouteTableSerializer, AzureVirtualNetworkSerializer, AzureVnetSerializer
 import ipaddress
 from django.http import JsonResponse
 
@@ -210,6 +210,9 @@ class AWSDataView(APIView):
         elif table == "vpc-endpoint":
             endpoints = VPCEndpoint.objects.all()
             serializer = AWSVpcEndpointSerializer(endpoints, many=True)
+        elif table == "route53":
+            route53 = Route53Record.objects.all()
+            serializer = AWSRoute53RecordSerializer(route53, many=True)
         else:
             return Response({'error': 'Invalid table name'}, status=status.HTTP_400_BAD_REQUEST)
 

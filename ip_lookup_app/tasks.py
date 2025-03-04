@@ -61,6 +61,10 @@ def sync_aws_data(self):
         sync_aws.sync_vpc_endpoints()  # 新增同步 EIP
         logger.info("AWS Endpoint sync complete.")
 
+        logger.info("Starting AWS route53 sync...")
+        sync_aws.sync_route53_records()  # 新增同步 route53
+        logger.info("AWS route53 sync complete.")
+
     except MaxRetriesExceededError:
         logger.error("Max retries reached for sync_aws_data task.", exc_info=True)
     except Exception as e:

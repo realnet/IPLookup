@@ -30,8 +30,7 @@
           <li><a onclick="loadDataTable('/api/aws/security-group/','安全组信息','sg-table', sgColumns)">安全组信息</a></li>
           <li><a onclick="loadDataTable('/api/aws/eip/','EIP信息','eip-table', eipColumns)">EIP 信息</a></li>
           <li><a onclick="loadDataTable('/api/aws/vpc-endpoint/', 'VPC Endpoint 信息', 'vpc-endpoint-table', vpcEndpointColumns)">VPC Endpoint 信息</a></li>
-          <li><a onclick="showPlaceholder('DNS(AWS)')">DNS</a></li>
-          <li><a onclick="showPlaceholder('Endpoint(AWS)')">Endpoint</a></li>
+          <li><a onclick="loadDataTable('/api/aws/route53/','Route53','route53-table', route53Columns)">Route53 信息</a></li>
         </ul>
       </li>
       <li>Azure
@@ -40,8 +39,6 @@
           <li><a onclick="showPlaceholder('vnet信息')">vnet信息</a></li>
           <li><a onclick="showPlaceholder('Azure路由表信息')">路由表信息</a></li>
           <li><a onclick="showPlaceholder('Azure安全组信息')">安全组信息</a></li>
-          <li><a onclick="showPlaceholder('DNS(Azure)')">DNS</a></li>
-          <li><a onclick="showPlaceholder('Endpoint(Azure)')">Endpoint</a></li>
         </ul>
       </li>
     </ul>

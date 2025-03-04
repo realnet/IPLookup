@@ -13,12 +13,10 @@
 """
 import boto3
 import logging
-import sys
-import io
-import os
+import json
+from django.utils.timezone import now
 from django.db import transaction
 from config import AWS_REGIONS, aws_access_key_id, aws_secret_access_key, aws_session_token
-from botocore.exceptions import BotoCoreError, ClientError
 from ip_lookup_app.models import (
     AWSEC2Instance,
     AWSVPC,
@@ -28,40 +26,10 @@ from ip_lookup_app.models import (
     AWSSecurityGroup,
     AWSSecurityGroupRule,
     AWSElasticIP,
-    VPCEndpoint
+    VPCEndpoint,
+    Route53Record
 )
 
-
-# 强制 stdout/stderr 采用 UTF-8 编码，避免 Windows 终端乱码
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
-
-# 自定义日志处理器，确保 Windows 终端 UTF-8 兼容
-class Utf8StreamHandler(logging.StreamHandler):
-    def __init__(self, stream=None):
-        super().__init__(stream or sys.stdout)
-        self.stream = sys.stdout  # 确保 stdout 始终是 UTF-8
-
-    def emit(self, record):
-        try:
-            msg = self.format(record)
-            stream = self.stream
-            # 统一转换为 UTF-8 编码并解码，防止 Windows 编码错误
-            msg = msg.encode('utf-8', errors='replace').decode('utf-8')
-            stream.write(msg + self.terminator)
-            self.flush()
-        except UnicodeEncodeError:
-            pass  # 忽略 Unicode 编码错误
-
-# 统一日志配置，确保所有输出 UTF-8 编码
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.FileHandler("sync_aws.log", encoding="utf-8"),  # 确保日志文件是 UTF-8
-        Utf8StreamHandler()  # 终端日志也支持 UTF-8
-    ]
-)
 
 class SyncAws:
     def __init__(self):
@@ -79,6 +47,17 @@ class SyncAws:
                 aws_session_token=aws_session_token
             )
         return self.clients[region]
+
+    def _get_route53_client(self):
+        """获取 Route 53 客户端（带缓存）"""
+        if not hasattr(self, 'route53_client'):
+            self.route53_client = boto3.client(
+                'route53',
+                aws_access_key_id=aws_access_key_id,
+                aws_secret_access_key=aws_secret_access_key,
+                aws_session_token=aws_session_token
+            )
+        return self.route53_client
 
     def _get_resource_name(self, tags, default=""):
         """从标签获取资源名称"""
@@ -401,7 +380,7 @@ class SyncAws:
             try:
                 endpoints = ec2.describe_vpc_endpoints().get('VpcEndpoints', [])
             except Exception as e:
-                logging.error(f"获取 {region} VPC Endpoints 失败: {e}", exc_info=True)
+                logging.error(f"Get {region} VPC Endpoints failure: {e}", exc_info=True)
                 continue
 
             with transaction.atomic():
@@ -409,7 +388,7 @@ class SyncAws:
                     try:
                         self._process_vpc_endpoint(region, endpoint)
                     except Exception as e:
-                        logging.error(f"处理 VPC Endpoint {endpoint.get('VpcEndpointId')} 失败: {e}", exc_info=True)
+                        logging.error(f"Action VPC Endpoint {endpoint.get('VpcEndpointId')} failure: {e}", exc_info=True)
 
     def _process_vpc_endpoint(self, region, endpoint):
         """处理单个 VPC 终端节点"""
@@ -443,5 +422,53 @@ class SyncAws:
             }
         )
 
-        logging.info(f"同步 VPC Endpoint{endpoint_id}")
+        logging.info(f"Sync VPC Endpoint{endpoint_id}")
 
+    def sync_route53_records(self):
+        """同步 AWS Route 53 DNS 记录"""
+        try:
+            route53 = self._get_route53_client()
+            hosted_zones = route53.list_hosted_zones()["HostedZones"]
+            for zone in hosted_zones:
+                hosted_zone_id = zone["Id"].split("/")[-1]
+                hosted_zone_name = zone["Name"]
+
+                records = route53.list_resource_record_sets(HostedZoneId=hosted_zone_id)["ResourceRecordSets"]
+                for record in records:
+                    record_name = record["Name"]
+                    record_type = record["Type"]
+                    ttl = record.get("TTL")
+                    alias_target = record.get("AliasTarget")
+                    alias = alias_target is not None
+
+                    # 处理 value（非别名记录）
+                    values = [r["Value"] for r in record.get("ResourceRecords", [])]
+
+                    # 处理 Routing Policy
+                    if "GeoLocation" in record:
+                        routing_policy = "Geolocation"
+                    elif "Weight" in record:
+                        routing_policy = "Weighted"
+                    elif "Failover" in record:
+                        routing_policy = "Failover"
+                    elif "MultiValueAnswer" in record:
+                        routing_policy = "MultiValue"
+                    else:
+                        routing_policy = "Simple"
+
+                    Route53Record.objects.update_or_create(
+                        record_name=record_name,
+                        record_type=record_type,
+                        hosted_zone_id=hosted_zone_id,
+                        defaults={
+                            "routing_policy": routing_policy,
+                            "alias": alias,
+                            "value": json.dumps(values),
+                            "ttl": ttl,
+                            "hosted_zone_name": hosted_zone_name,
+                            "last_updated": now(),
+                        },
+                    )
+            print("✅ Route 53 记录同步完成")
+        except Exception as e:
+            print(f"❌ Route 53 记录同步失败: {e}")

@@ -71,6 +71,10 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'ip_lookup_app.tasks.sync_aws_data',
         'schedule': crontab(hour=17, minute=30),
     },
+    # "sync_aws_route53_data": {
+    #     "task": "ip_lookup_app.tasks.sync_aws_route53_data",
+    #     "schedule": crontab(hour=17, minute=32),  # 每天 17:32 运行
+    # },
 }
 
 

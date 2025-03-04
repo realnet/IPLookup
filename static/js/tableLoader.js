@@ -118,6 +118,17 @@ const vpcEndpointColumns = [
 
 console.log("VPC Endpoint Columns Loaded:", vpcEndpointColumns);
 
+// 定义 Route 53 记录表格列
+const route53Columns = [
+    { header: "记录名称", field: "record_name" },
+    { header: "类型", field: "record_type" },
+    { header: "路由策略", field: "routing_policy" },
+    { header: "别名", field: "alias" },
+    { header: "值 / 路由流量到", field: "value" },
+    { header: "TTL", field: "ttl" }
+];
+
+console.log("Route 53 Columns Loaded:", route53Columns);
 
 
 
