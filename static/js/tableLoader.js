@@ -2,6 +2,11 @@
  * 通用：加载表格
  ***********************/
 function loadDataTable(apiEndpoint, title, tableId, columns) {
+  if (!columns || !Array.isArray(columns)) {
+    console.error(`错误: ${title} 的 columns 未定义或不是数组`, columns);
+    return;
+  }
+
   const content = document.getElementById('main-content');
   content.innerHTML = `
     <h2>${title}</h2>
@@ -80,3 +85,39 @@ const sgColumns = [
   { header: 'Inbound #',           field: 'inbound_rules_count' },
   { header: 'Outbound #',          field: 'outbound_rules_count' },
 ];
+
+// 定义 EIP 表格列
+const eipColumns = [
+    { header: "名称", field: "name" },
+    { header: "公网 IP", field: "allocated_ipv4_address" },
+    { header: "类型", field: "type" },
+    { header: "分配 ID", field: "allocation_id" },
+    { header: "反向 DNS", field: "reverse_dns_record" },
+    { header: "绑定实例 ID", field: "associated_instance_id" },
+    { header: "私有 IP", field: "private_ip_address" },
+    { header: "关联 ID", field: "association_id" },
+    { header: "网卡拥有者 ID", field: "network_interface_owner_account_id" },
+    { header: "边界组", field: "network_border_group" }
+];
+
+
+console.log("EIP Columns Loaded:", eipColumns);
+
+// 定义 VPC Endpoint 表格列
+const vpcEndpointColumns = [
+    { header: "名称", field: "name" },
+    { header: "VPC Endpoint ID", field: "endpoint_id" },
+    { header: "类型", field: "endpoint_type" },
+    { header: "状态", field: "status" },
+    { header: "服务名称", field: "service_name" },
+    { header: "VPC ID", field: "vpc_id" },
+    { header: "创建时间", field: "creation_time" },
+    { header: "网卡 ID", field: "network_interfaces" },
+    { header: "子网 ID", field: "subnets" }
+];
+
+console.log("VPC Endpoint Columns Loaded:", vpcEndpointColumns);
+
+
+
+

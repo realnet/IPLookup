@@ -109,6 +109,42 @@ class AWSRoute(models.Model):
     def __str__(self):
         return f"{self.route_table.route_table_id}-{self.destination_cidr_block}"
 
+
+class AWSElasticIP(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True)
+    allocated_ipv4_address = models.GenericIPAddressField()
+    ip_type = models.CharField(max_length=50)
+    allocation_id = models.CharField(max_length=100, unique=True)
+    reverse_dns_record = models.CharField(max_length=255, blank=True, null=True)
+    associated_instance_id = models.CharField(max_length=100, blank=True, null=True)
+    private_ip_address = models.GenericIPAddressField(blank=True, null=True)
+    association_id = models.CharField(max_length=100, blank=True, null=True)
+    network_interface_owner_account_id = models.CharField(max_length=50, blank=True, null=True)
+    network_border_group = models.CharField(max_length=100)
+
+    class Meta:
+        db_table = "aws_elastic_ip"
+        verbose_name = "AWS Elastic IP"
+        verbose_name_plural = "AWS Elastic IPs"
+
+    def __str__(self):
+        return self.allocated_ipv4_address
+
+class VPCEndpoint(models.Model):
+    endpoint_id = models.CharField(max_length=50, unique=True)  # 确保字段名正确
+    name = models.CharField(max_length=255, blank=True, null=True)
+    vpc_id = models.CharField(max_length=50)
+    service_name = models.CharField(max_length=255)
+    endpoint_type = models.CharField(max_length=50)
+    status = models.CharField(max_length=50)
+    creation_time = models.DateTimeField(null=True, blank=True)
+    region = models.CharField(max_length=50, default='unknown')
+    subnets = models.JSONField(default=list)
+    network_interfaces = models.JSONField(default=list)
+
+    def __str__(self):
+        return self.endpoint_id
+
 # Azure模型
 class AzureVirtualNetwork(models.Model):
     name = models.CharField(max_length=255)

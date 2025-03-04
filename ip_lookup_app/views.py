@@ -4,8 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .models import AWSSubnet, AWSRouteTable, AWSEC2Instance, AWSSecurityGroup, AWSVPC, AzureSubnet, AzureRouteTable, AzureVirtualNetwork, AzureVnet
-from .serializers import AWSSubnetSerializer, AWSEC2InstanceSerializer, AWSSecurityGroupSerializer, AWSRouteTableSerializer, AWSVPCSerializer, AzureSubnetSerializer, AzureRouteTableSerializer, AzureVirtualNetworkSerializer, AzureVnetSerializer
+from .models import AWSSubnet, AWSRouteTable, AWSEC2Instance,VPCEndpoint, AWSSecurityGroup, AWSVPC, AWSElasticIP, AzureSubnet, AzureRouteTable, AzureVirtualNetwork, AzureVnet
+from .serializers import AWSSubnetSerializer, AWSVpcEndpointSerializer, AWSEC2InstanceSerializer, AWSElasticIPSerializer, AWSSecurityGroupSerializer, AWSRouteTableSerializer, AWSVPCSerializer, AzureSubnetSerializer, AzureRouteTableSerializer, AzureVirtualNetworkSerializer, AzureVnetSerializer
 import ipaddress
 from django.http import JsonResponse
 
@@ -199,11 +199,17 @@ class AWSDataView(APIView):
             route_tables = AWSRouteTable.objects.all()
             serializer = AWSRouteTableSerializer(route_tables, many=True)
         elif table == 'ec2':
-            route_tables = AWSEC2Instance.objects.all()
-            serializer = AWSEC2InstanceSerializer(route_tables, many=True)
+            ec2 = AWSEC2Instance.objects.all()
+            serializer = AWSEC2InstanceSerializer(ec2, many=True)
         elif table == 'security-group':
-            route_tables = AWSSecurityGroup.objects.all()
-            serializer = AWSSecurityGroupSerializer(route_tables, many=True)
+            security_group = AWSSecurityGroup.objects.all()
+            serializer = AWSSecurityGroupSerializer(security_group, many=True)
+        elif table == "eip":  # 添加 EIP 逻辑
+            eips = AWSElasticIP.objects.all()
+            serializer = AWSElasticIPSerializer(eips, many=True)
+        elif table == "vpc-endpoint":
+            endpoints = VPCEndpoint.objects.all()
+            serializer = AWSVpcEndpointSerializer(endpoints, many=True)
         else:
             return Response({'error': 'Invalid table name'}, status=status.HTTP_400_BAD_REQUEST)
 

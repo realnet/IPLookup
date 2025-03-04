@@ -6713,3 +6713,29 @@ Traceback (most recent call last):
   File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\base.py", line 567, in __init__
     raise TypeError(
 TypeError: AWSSecurityGroupRule() got unexpected keyword arguments: 'description'
+Synced Elastic IP: 13.214.103.86
+Synced Elastic IP: 13.228.215.163
+Synced Elastic IP: 13.228.63.17
+Synced Elastic IP: 13.250.184.249
+Synced Elastic IP: 18.136.148.164
+Synced Elastic IP: 18.139.121.222
+Synced Elastic IP: 18.139.74.84
+Synced Elastic IP: 18.140.214.175
+Synced Elastic IP: 52.220.142.70
+Synced Elastic IP: 52.74.85.197
+Synced Elastic IP: 54.179.196.36
+Synced Elastic IP: 16.162.7.21
+Synced Elastic IP: 16.163.118.223
+Synced Elastic IP: 16.163.244.234
+Synced Elastic IP: 16.163.68.171
+Synced Elastic IP: 18.162.248.229
+Synced Elastic IP: 18.162.74.247
+Synced Elastic IP: 18.162.93.24
+Synced Elastic IP: 18.163.169.239
+Synced Elastic IP: 18.163.86.72
+Synced Elastic IP: 18.167.179.212
+Synced Elastic IP: 35.78.43.107
+Synced Elastic IP: 52.196.131.48
+Synced Elastic IP: 52.199.237.231
+Synced Elastic IP: 52.68.235.155
+Found credentials in shared credentials file: ~/.aws/credentials

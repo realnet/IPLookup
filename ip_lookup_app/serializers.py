@@ -12,7 +12,7 @@
 #---------------------------
 """
 from rest_framework import serializers
-from .models import AWSVPC, AWSSubnet,AWSEC2Instance, AWSSecurityGroup, AWSRouteTable, AzureVirtualNetwork, AzureVnet, AzureSubnet, AzureRouteTable
+from .models import AWSVPC, AWSSubnet,AWSEC2Instance, AWSSecurityGroup, AWSElasticIP, AWSRouteTable, VPCEndpoint,AzureVirtualNetwork, AzureVnet, AzureSubnet, AzureRouteTable
 
 class AWSEC2InstanceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,6 +37,16 @@ class AWSSubnetSerializer(serializers.ModelSerializer):
 class AWSRouteTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = AWSRouteTable
+        fields = '__all__'
+
+class AWSElasticIPSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AWSElasticIP
+        fields = '__all__'
+
+class AWSVpcEndpointSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VPCEndpoint
         fields = '__all__'
 
 class AzureVirtualNetworkSerializer(serializers.ModelSerializer):

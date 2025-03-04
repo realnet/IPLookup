@@ -13,8 +13,12 @@
 """
 import boto3
 import logging
+import sys
+import io
+import os
 from django.db import transaction
 from config import AWS_REGIONS, aws_access_key_id, aws_secret_access_key, aws_session_token
+from botocore.exceptions import BotoCoreError, ClientError
 from ip_lookup_app.models import (
     AWSEC2Instance,
     AWSVPC,
@@ -22,7 +26,41 @@ from ip_lookup_app.models import (
     AWSRouteTable,
     AWSRoute,
     AWSSecurityGroup,
-    AWSSecurityGroupRule
+    AWSSecurityGroupRule,
+    AWSElasticIP,
+    VPCEndpoint
+)
+
+
+# 强制 stdout/stderr 采用 UTF-8 编码，避免 Windows 终端乱码
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+
+# 自定义日志处理器，确保 Windows 终端 UTF-8 兼容
+class Utf8StreamHandler(logging.StreamHandler):
+    def __init__(self, stream=None):
+        super().__init__(stream or sys.stdout)
+        self.stream = sys.stdout  # 确保 stdout 始终是 UTF-8
+
+    def emit(self, record):
+        try:
+            msg = self.format(record)
+            stream = self.stream
+            # 统一转换为 UTF-8 编码并解码，防止 Windows 编码错误
+            msg = msg.encode('utf-8', errors='replace').decode('utf-8')
+            stream.write(msg + self.terminator)
+            self.flush()
+        except UnicodeEncodeError:
+            pass  # 忽略 Unicode 编码错误
+
+# 统一日志配置，确保所有输出 UTF-8 编码
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.FileHandler("sync_aws.log", encoding="utf-8"),  # 确保日志文件是 UTF-8
+        Utf8StreamHandler()  # 终端日志也支持 UTF-8
+    ]
 )
 
 class SyncAws:
@@ -322,3 +360,88 @@ class SyncAws:
             if from_port == 443 and to_port == 443:
                 return "HTTPS"
         return "Custom"
+
+    def sync_elastic_ips(self):
+        """同步 AWS VPC 下的弹性 IP（Elastic IP）"""
+        for region in self.regions:
+            ec2 = self._get_ec2_client(region)
+            try:
+                response = ec2.describe_addresses()
+            except Exception as e:
+                logging.error(f"Failed to fetch Elastic IPs for {region}: {e}", exc_info=True)
+                continue
+
+            with transaction.atomic():
+                for address in response.get('Addresses', []):
+                    try:
+                        name_tag = self._get_resource_name(address.get("Tags", []))
+                        AWSElasticIP.objects.update_or_create(
+                            allocation_id=address.get("AllocationId"),
+                            defaults={
+                                "name": name_tag,
+                                "allocated_ipv4_address": address.get("PublicIp"),
+                                "ip_type": address.get("Domain"),
+                                "reverse_dns_record": address.get("PublicIpv4Pool"),
+                                "associated_instance_id": address.get("InstanceId"),
+                                "private_ip_address": address.get("PrivateIpAddress"),
+                                "association_id": address.get("AssociationId"),
+                                "network_interface_owner_account_id": address.get("NetworkInterfaceOwnerId"),
+                                "network_border_group": address.get("NetworkBorderGroup"),
+                            }
+                        )
+                        logging.info(f"Synced Elastic IP: {address.get('PublicIp')}")
+                    except Exception as e:
+                        logging.error(f"Error processing Elastic IP {address.get('PublicIp')}: {e}", exc_info=True)
+
+
+    def sync_vpc_endpoints(self):
+        """同步 VPC 终端节点数据"""
+        for region in self.regions:
+            ec2 = self._get_ec2_client(region)
+            try:
+                endpoints = ec2.describe_vpc_endpoints().get('VpcEndpoints', [])
+            except Exception as e:
+                logging.error(f"获取 {region} VPC Endpoints 失败: {e}", exc_info=True)
+                continue
+
+            with transaction.atomic():
+                for endpoint in endpoints:
+                    try:
+                        self._process_vpc_endpoint(region, endpoint)
+                    except Exception as e:
+                        logging.error(f"处理 VPC Endpoint {endpoint.get('VpcEndpointId')} 失败: {e}", exc_info=True)
+
+    def _process_vpc_endpoint(self, region, endpoint):
+        """处理单个 VPC 终端节点"""
+        endpoint_id = endpoint.get("VpcEndpointId", "")
+        vpc_id = endpoint.get("VpcId", "")
+        service_name = endpoint.get("ServiceName", "")
+        endpoint_type = endpoint.get("VpcEndpointType", "")
+        status = endpoint.get("State", "")
+        creation_time = endpoint.get("CreationTimestamp", None)
+
+        # 提取标签信息
+        name_tag = self._get_resource_name(endpoint.get("Tags", []), endpoint_id)
+
+        # 获取关联的子网和网络接口
+        subnet_ids = endpoint.get("SubnetIds", [])
+        network_interfaces = endpoint.get("NetworkInterfaceIds", [])
+
+        # 更新或创建 VPC Endpoint 记录
+        VPCEndpoint.objects.update_or_create(
+            endpoint_id=endpoint_id,
+            defaults={
+                "name": name_tag,
+                "vpc_id": vpc_id,
+                "service_name": service_name,
+                "endpoint_type": endpoint_type,
+                "status": status,
+                "creation_time": creation_time,
+                "region": region,
+                "subnets": subnet_ids,
+                "network_interfaces": network_interfaces
+            }
+        )
+
+        logging.info(f"同步 VPC Endpoint{endpoint_id}")
+
