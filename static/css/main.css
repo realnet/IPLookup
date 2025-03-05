@@ -1,51 +1,110 @@
+/* 页面基本样式 */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
 
+/* 顶部用户信息栏 */
+.top-bar {
+  background: #f8f9fa;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-right: 20px;
+}
+
+.logout-btn {
+  background: #0078D4; /* Azure Blue */
+  color: white;
+  padding: 5px 12px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.logout-btn:hover {
+  background: green;
+}
+
+/* 页面布局 */
 .container {
   display: flex;
   height: 100vh;
 }
 
+/* 侧边栏 */
 .sidebar {
   width: 220px;
-  background-color: #f2f2f2;
+  background: #f8f9fa; /* 将侧边栏背景色改为与顶部栏一致，假设“网络运维服务” 背景色和顶部栏一样，如果不是请调整成对应颜色 */
+  color: #0078D4;
   padding: 20px;
   box-sizing: border-box;
+  height: 100vh;
 }
 
 .sidebar h2 {
-  margin-top: 0;
-  font-size: 1.2em;
-  margin-bottom: 10px;
-}
-
-.sidebar ul {
-  list-style-type: none;
-  padding-left: 0;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  color: #0078D4;
+  font-size: 20px;
+  font-weight: bold;
   margin: 0;
 }
 
-.sidebar li {
-  margin-bottom: 8px;
+.sidebar ul {
+  margin-top: 10px;
+  padding: 0;
+
 }
 
-.sidebar ul ul {
-  margin-left: 15px;
-  margin-top: 5px;
+.sidebar li {
+  margin-bottom: 5px;
 }
 
 .sidebar a {
   text-decoration: none;
-  color: #333;
-  cursor: pointer;
+  color: #0078D4; /* 改变菜单文字颜色与背景色搭配协调，可根据喜好调整 */
+  display: block;
+  padding: 3px;
 }
 
-.sidebar a:hover {
-  color: #007bff;
+.sidebar ul li a:hover {
+  color: green;
+  background: transparent;
 }
 
+/* 下拉菜单 */
+.submenu {
+  display: block;
+  list-style: none;
+  padding-left: 15px;
+  background: #e0f2ff; /* 子菜单背景色保持淡蓝色，可按需调整 */
+}
+
+.submenu + .submenu {
+  margin-top: 2px;
+}
+
+.submenu li {
+  margin-bottom: 2px;
+  padding: 4px;
+  background: #e0f2ff;
+  border: 1px solid #b3d9ff;
+}
+
+.submenu li:hover {
+  background: lightgray;
+}
+
+/* 右侧内容区 */
 .content {
   flex: 1;
   padding: 20px;
@@ -53,6 +112,11 @@ body {
   overflow-y: auto;
 }
 
+h1 {
+  color: #0078D4;
+}
+
+/* 表格样式 */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -61,12 +125,11 @@ table {
 
 th, td {
   border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
+  padding: 4px;
+  text-align: left;}
 
 th {
-  background-color: #ADD8E6; /* 表头背景淡蓝色 */
+  background-color: #e0f2ff; /* 表头背景淡蓝色 */
 }
 
 .heading-blue {

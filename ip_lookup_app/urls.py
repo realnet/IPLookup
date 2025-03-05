@@ -12,7 +12,10 @@
 #---------------------------
 """
 from django.urls import path
-from .views import aws_sg_data
+from .views import user_login, user_logout
+from django.contrib.auth.views import LogoutView
+
+
 
 from .views import (
     index_page,
@@ -25,6 +28,8 @@ from .views import (
     aws_sg_data,
     aws_sg_detail,
 )
+
+
 
 urlpatterns = [
     # 主页面：显示 indexbak.html
@@ -42,4 +47,8 @@ urlpatterns = [
     # tasks/Azure 页面占位
     path('aws/', aws_page, name='aws-page'),
     path('azure/', azure_page, name='azure-page'),
+
+    #登录配置
+    path("login/", user_login, name="login"),
+    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
 ]

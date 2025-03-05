@@ -1,19 +1,17 @@
-
-from django.shortcuts import render
+import logging
+import ipaddress
+from django.shortcuts import render,redirect
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import AWSSubnet, AWSRouteTable, AWSEC2Instance,VPCEndpoint, AWSSecurityGroup, Route53Record,AWSVPC, AWSElasticIP, AzureSubnet, AzureRouteTable, AzureVirtualNetwork, AzureVnet
 from .serializers import AWSSubnetSerializer, AWSVpcEndpointSerializer, AWSEC2InstanceSerializer,AWSRoute53RecordSerializer, AWSElasticIPSerializer, AWSSecurityGroupSerializer, AWSRouteTableSerializer, AWSVPCSerializer, AzureSubnetSerializer, AzureRouteTableSerializer, AzureVirtualNetworkSerializer, AzureVnetSerializer
-import ipaddress
 from django.http import JsonResponse
-
-import logging,json
-import traceback
-
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 
 logger = logging.getLogger(__name__)
@@ -246,6 +244,8 @@ def aws_page(request):
 def azure_page(request):
     return render(request, 'azure.html')
 
+from django.contrib.auth.decorators import login_required
+@login_required
 def index_page(request):
     # 返回 indexbak.html 模板
     return render(request, 'index.html')
@@ -384,3 +384,25 @@ def aws_sg_detail(request, group_id):
     sg_data['outbound_rules'] = outbound_list
 
     return JsonResponse(sg_data, safe=False)
+
+
+# // 设置django页面登录功能
+def user_login(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, "登录成功！")
+            return redirect("index")  # 登录成功跳转到 index 页面
+        else:
+            messages.error(request, "用户名或密码错误！")
+
+    return render(request, "login.html")
+
+
+def user_logout(request):
+    logout(request)
+    messages.info(request, "已成功退出登录！")
+    return redirect("login")

@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户登录</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>用户登录</h2>
+
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="用户名" required>
+            <input type="password" name="password" placeholder="密码" required>
+            <button type="submit" class="login-btn">登录</button>
+        </form>
+
+        <hr>
+        <button class="aad-btn" onclick="redirectToAAD()">LOGIN WITH AAD</button>
+    </div>
+
+    <script src="{% static 'js/login.js' %}"></script>
+</body>
+</html>

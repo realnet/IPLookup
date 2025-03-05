@@ -30,7 +30,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']  # 仅测试环境使用，生产环境需要配置具体域名
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000']  # 允许前端访问 API
 
-
+LOGIN_URL = "/login/"
+LOGOUT_REDIRECT_URL = "/login/"
 
 # Application definition
 
@@ -170,7 +171,7 @@ USE_TZ = True
 # settings.py
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    os.path.join(BASE_DIR, "static"),
 ]
 
 # Default primary key field type

@@ -1,59 +1,70 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <title>Index - Single Page</title>
-  <!-- 引入 jQuery -->
+  <title>首页</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- 引入CSS -->
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
-<div class="container">
-  <!-- 左侧菜单栏 -->
-  <div class="sidebar">
-    <h2>网络运维服务</h2>
-    <ul>
-      <li>查询功能
-        <ul>
-          <li><a onclick="showIpLookup()">IP查询</a></li>
-          <li><a onclick="showPlaceholder('路由信息查询')">路由信息查询</a></li>
-          <li><a onclick="showPlaceholder('网络拓扑')">网络拓扑</a></li>
-        </ul>
-      </li>
-      <li>AWS
-        <ul>
-          <li><a onclick="loadDataTable('/api/aws/ec2/','EC2实例信息','ec2-table', ec2Columns)">主机信息</a></li>
-          <li><a onclick="loadDataTable('/api/aws/vpc/','VPC信息','vpc-table', vpcColumns)">VPC信息</a></li>
-          <li><a onclick="loadDataTable('/api/aws/route-table/','路由表信息','route-table', routeColumns)">路由表信息</a></li>
-          <li><a onclick="loadDataTable('/api/aws/security-group/','安全组信息','sg-table', sgColumns)">安全组信息</a></li>
-          <li><a onclick="loadDataTable('/api/aws/eip/','EIP信息','eip-table', eipColumns)">EIP 信息</a></li>
-          <li><a onclick="loadDataTable('/api/aws/vpc-endpoint/', 'VPC Endpoint 信息', 'vpc-endpoint-table', vpcEndpointColumns)">VPC Endpoint 信息</a></li>
-          <li><a onclick="loadDataTable('/api/aws/route53/','Route53','route53-table', route53Columns)">Route53 信息</a></li>
-        </ul>
-      </li>
-      <li>Azure
-        <ul>
-          <li><a onclick="showPlaceholder('Azure主机信息')">主机信息</a></li>
-          <li><a onclick="showPlaceholder('vnet信息')">vnet信息</a></li>
-          <li><a onclick="showPlaceholder('Azure路由表信息')">路由表信息</a></li>
-          <li><a onclick="showPlaceholder('Azure安全组信息')">安全组信息</a></li>
-        </ul>
-      </li>
-    </ul>
+  <header class="top-bar">
+    <div class="user-info">
+      <span>当前用户: {{ user.username }}</span>
+      <a href="{% url 'logout' %}" class="logout-btn">退出登录</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- 左侧菜单栏 -->
+    <div class="sidebar">
+      <h2>网络运维服务</h2>
+      <ul class="menu">
+        <li>
+          <!-- 移除下拉箭头 -->
+          <a href="#">查询功能</a>
+          <ul class="submenu">
+            <li><a onclick="showIpLookup()">IP查询</a></li>
+            <li><a onclick="showPlaceholder('路由信息查询')">路由信息查询</a></li>
+            <li><a onclick="showPlaceholder('网络拓扑')">网络拓扑</a></li>
+          </ul>
+        </li>
+        <li>
+          <!-- 移除下拉箭头 -->
+          <a href="#">AWS</a>
+          <ul class="submenu">
+            <li><a onclick="loadDataTable('/api/aws/ec2/','EC2实例信息','ec2-table', ec2Columns)">主机信息</a></li>
+            <li><a onclick="loadDataTable('/api/aws/vpc/','VPC信息','vpc-table', vpcColumns)">VPC信息</a></li>
+            <li><a onclick="loadDataTable('/api/aws/route-table/','路由表信息','route-table', routeColumns)">路由表信息</a></li>
+            <li><a onclick="loadDataTable('/api/aws/security-group/','安全组信息','sg-table', sgColumns)">安全组信息</a></li>
+            <li><a onclick="loadDataTable('/api/aws/eip/','EIP信息','eip-table', eipColumns)">EIP 信息</a></li>
+            <li><a onclick="loadDataTable('/api/aws/vpc-endpoint/', 'VPC Endpoint 信息', 'vpc-endpoint-table', vpcEndpointColumns)">VPC Endpoint 信息</a></li>
+            <li><a onclick="loadDataTable('/api/aws/route53/','Route53','route53-table', route53Columns)">Route53 信息</a></li>
+          </ul>
+        </li>
+        <li>
+          <!-- 移除下拉箭头 -->
+          <a href="#">Azure</a>
+          <ul class="submenu">
+            <li><a onclick="showPlaceholder('Azure主机信息')">主机信息</a></li>
+            <li><a onclick="showPlaceholder('vnet信息')">vnet信息</a></li>
+            <li><a onclick="showPlaceholder('Azure路由表信息')">路由表信息</a></li>
+            <li><a onclick="showPlaceholder('Azure安全组信息')">安全组信息</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 右侧内容区 -->
+    <div class="content" id="main-content">
+      <h1>欢迎来到 Network Home</h1>
+      <p>请选择左侧菜单进行操作。</p>
+    </div>
   </div>
 
-  <!-- 右侧内容区 -->
-  <div class="content" id="main-content">
-    <h1>欢迎来到Network Home</h1>
-    <p>请选择左侧菜单进行操作。</p>
-  </div>
-</div>
-
-<!-- 引入外部JS：先通用common.js，再tableLoader.js，再ipLookup.js -->
-<script src="{% static 'js/common.js' %}"></script>
-<script src="{% static 'js/tableLoader.js' %}"></script>
-<script src="{% static 'js/ipLookup.js' %}"></script>
+  <!-- 引入外部JS -->
+  <script src="{% static 'js/common.js' %}"></script>
+  <script src="{% static 'js/tableLoader.js' %}"></script>
+  <script src="{% static 'js/ipLookup.js' %}"></script>
 </body>
 </html>
