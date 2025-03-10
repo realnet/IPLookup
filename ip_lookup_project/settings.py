@@ -55,17 +55,18 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'ip_lookup_project.logout_timer.AutoLogoutMiddleware',
 ]
 
 ROOT_URLCONF = 'ip_lookup_project.urls'
 
 # Celery配置
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://10.36.120.110:6379/0'
+CELERY_RESULT_BACKEND = 'redis://10.36.120.110:6379/0'
 # Celery 定时任务（需要配合 Celery Beat）
 CELERY_BEAT_SCHEDULE = {
     'sync_aws_data': {
@@ -205,3 +206,16 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
     )
 }
+
+### 设置自动登录时间超市
+
+# 表示 Session 的最大存活时间（单位：秒）
+SESSION_COOKIE_AGE = 900
+
+# 每次请求时，自动更新 session 的过期时间
+SESSION_SAVE_EVERY_REQUEST = True
+
+# 是否在浏览器关闭时过期，这里设为 False，允许在 30分钟后过期
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_ENGINE = "django.contrib.sessions.backends.db"  # 使用数据库存储会话
+

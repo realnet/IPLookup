@@ -31,3 +31,5 @@ function filterTable(tableId, inputId) {
     trs[i].style.display = show ? '' : 'none';
   }
 }
+
+

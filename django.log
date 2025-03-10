@@ -9119,3 +9119,232 @@ Watching for file changes with StatReloader
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Checking EC2 instances...
+Found EC2 match: {'cloud': 'tasks', 'type': 'EC2', 'instance_id': 'i-0f87cb0868bf7036b', 'instance_name': 'FG-P-EC2-HK02', 'private_ips': ['10.225.227.30', '10.225.226.254', '10.225.227.14', '10.225.226.126'], 'public_ips': ['16.163.118.223'], 'vpc_id': 'vpc-04a36e32ad9c9b322', 'vpc_name': 'int', 'subnet_id': 'subnet-0eb5c1628f9f0cf31', 'subnet_name': 'subnet-0eb5c1628f9f0cf31', 'subnet_cidr': '10.225.226.0/25', 'security_groups': ['sg-084895f98b69bbe88'], 'instance_type': 'c5.xlarge', 'state': 'running', 'region': 'ap-east-1', 'security_groups_detail': [{'group_id': 'sg-084895f98b69bbe88', 'group_name': 'HK-P-NSG-FG-INT-WAN', 'vpc_id': 'vpc-04a36e32ad9c9b322', 'description': 'FortigateSecGrpWan', 'owner': '876648144587', 'inbound_rules': [{'ip_protocol': 'tcp', 'from_port': 60002, 'to_port': 60002, 'source': '0.0.0.0/0', 'rule_type': 'Custom', 'rule_description': 'Temp'}, {'ip_protocol': '-1', 'from_port': None, 'to_port': None, 'source': '10.0.0.0/8', 'rule_type': 'All Traffic', 'rule_description': 'Allow local VPC access to FGT'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '13.228.215.163/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from GRE 2 (Singapore)'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '35.78.43.107/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from AWS Tokyo SSL Client VPN'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '52.68.235.155/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from GRE 3 (Tokyo)'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '219.143.61.130/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from Beijing ChinaTelcom'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '23.97.56.189/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from Azure Singapore'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '54.179.196.36/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from AWS Singapore SSL Client VPN'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '16.163.244.234/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from AWS HongKong SSL Client VPN'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '111.162.70.162/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from Tianjin ChinaUnicom'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '18.198.252.75/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from AWS Frankfurt SSL Client VPN'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '3.121.167.205/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from Frankfurt (Legacy)'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '18.167.179.212/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from GRE 1 (HongKong)'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '52.74.85.197/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from Singapore (Legacy)'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '13.94.37.252/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from Azure HongKong'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '15.184.254.144/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from Bahrain'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '61.50.114.186/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from Beijing ChinaUnicom'}, {'ip_protocol': 'tcp', 'from_port': 51000, 'to_port': 51000, 'source': '0.0.0.0/0', 'rule_type': 'Custom', 'rule_description': 'FOR Sftp'}, {'ip_protocol': 'tcp', 'from_port': 443, 'to_port': 443, 'source': '0.0.0.0/0', 'rule_type': 'HTTPS', 'rule_description': 'Allow SSL Client VPN'}], 'outbound_rules': [{'ip_protocol': '-1', 'from_port': None, 'to_port': None, 'source': '0.0.0.0/0', 'rule_type': 'All Traffic', 'rule_description': None}]}]}
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\settings.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_app\views.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Not Found: /api/aws/route53/3/
+Not Found: /api/aws/route53/3/
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_app\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_app\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Forbidden: /api/aws/route53/tasks/
+Watching for file changes with StatReloader
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_app\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_app\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_app\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Forbidden: /api/aws/route53/tasks/
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\settings.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /ip-lookup/
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_app\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Internal Server Error: /api/ip-lookup/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /api/aws/vpc/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /api/aws/ec2/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /api/aws/ec2/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /api/aws/ec2/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /api/aws/vpc/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /api/aws/route-table/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /api/aws/eip/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /api/aws/vpc-endpoint/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /api/aws/route-table/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /api/aws/vpc/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /api/aws/ec2/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /logout/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /logout/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /logout/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /api/aws/ec2/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /api/aws/security-group/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /api/aws/route-table/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+Internal Server Error: /api/aws/vpc/
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py", line 22, in __call__
+    if request.user.is_authenticated:
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\settings.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\settings.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\logout_timer.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_project\settings.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader

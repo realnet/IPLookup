@@ -1,6 +1,4 @@
-/***********************
- * 通用：加载表格
- ***********************/
+
 function loadDataTable(apiEndpoint, title, tableId, columns) {
   if (!columns || !Array.isArray(columns)) {
     console.error(`错误: ${title} 的 columns 未定义或不是数组`, columns);
@@ -32,6 +30,10 @@ function loadDataTable(apiEndpoint, title, tableId, columns) {
       data.forEach(item => {
         const tr = document.createElement('tr');
         tr.innerHTML = columns.map(col => {
+          // 检查 col 是否有 render 函数
+          if (col.render) {
+            return `<td>${col.render(item)}</td>`;
+          }
           const val = item[col.field] || '';
           return `<td>${val}</td>`;
         }).join('');
@@ -45,6 +47,110 @@ function loadDataTable(apiEndpoint, title, tableId, columns) {
     filterTable(tableId, 'search-input');
   });
 }
+
+
+function showTasks() {
+    const container = document.getElementById("main-content");
+    container.innerHTML = "<h2>变更任务列表</h2><div id='task-list'></div>";
+    loadTaskList();
+}
+
+function loadTaskList() {
+    fetch('/api/aws/route53/tasks/')
+        .then(res => res.json())
+        .then(tasks => {
+            let html = "<table><tr><th>Task ID</th><th>Status</th><th>操作</th></tr>";
+            tasks.forEach(t => {
+                html += `
+                    <tr>
+                        <td>${t.task_id}</td>
+                        <td>${t.status}</td>
+                        <td><button onclick="viewTaskDetail('${t.task_id}')">查看/确认</button></td>
+                    </tr>
+                `;
+            });
+            html += "</table>";
+            document.getElementById("task-list").innerHTML = html;
+        })
+        .catch(err => console.error(err));
+}
+
+function viewTaskDetail(taskId) {
+    fetch(`/api/aws/route53/tasks/${taskId}/`)
+        .then(res => res.json())
+        .then(task => {
+            if (task.error) {
+                alert("任务不存在");
+                return;
+            }
+            const msg = `
+            任务ID: ${task.task_id}\n
+            状态: ${task.status}\n
+            旧数据: ${JSON.stringify(task.old_data)}\n
+            新数据: ${JSON.stringify(task.new_data)}\n
+            `;
+            if (confirm(msg + "\n确认执行变更?")) {
+                // 需要 record_id
+                const recordId = prompt("请输入记录ID (示例)"); // 或在task中存record_id
+                applyTask(task.task_id, recordId);
+            }
+        })
+        .catch(err => console.error(err));
+}
+
+function applyTask(taskId, recordId) {
+    fetch(`/api/aws/route53/tasks/${taskId}/apply/`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ record_id: recordId })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        loadTaskList();
+    })
+    .catch(err => console.error(err));
+}
+
+
+function renderTable(title, tableId, columns, data) {
+    const container = document.getElementById("main-content");
+    container.innerHTML = `<h2>${title}</h2><table id="${tableId}" class="styled-table"></table>`;
+
+    const table = document.getElementById(tableId);
+    table.innerHTML = "";
+
+    // 创建表头
+    let thead = document.createElement("thead");
+    let headerRow = document.createElement("tr");
+    columns.forEach(col => {
+        let th = document.createElement("th");
+        th.textContent = col.header;
+        headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    // 创建表格内容
+    let tbody = document.createElement("tbody");
+    data.forEach(row => {
+        let tr = document.createElement("tr");
+        columns.forEach(col => {
+            let td = document.createElement("td");
+            // 如果 col 有 render 函数，则用它来生成单元格内容
+            if (col.render) {
+                td.innerHTML = col.render(row);
+            } else {
+                // 否则按 field 显示
+                td.textContent = row[col.field] || "-";
+            }
+            tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+}
+
 
 /***********************
  * 各资源列配置
@@ -118,17 +224,8 @@ const vpcEndpointColumns = [
 
 console.log("VPC Endpoint Columns Loaded:", vpcEndpointColumns);
 
-// 定义 Route 53 记录表格列
-const route53Columns = [
-    { header: "记录名称", field: "record_name" },
-    { header: "类型", field: "record_type" },
-    { header: "路由策略", field: "routing_policy" },
-    { header: "别名", field: "alias" },
-    { header: "值 / 路由流量到", field: "value" },
-    { header: "TTL", field: "ttl" }
-];
 
-console.log("Route 53 Columns Loaded:", route53Columns);
+
 
 
 

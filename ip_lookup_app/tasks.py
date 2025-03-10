@@ -12,12 +12,75 @@
 #---------------------------
 """
 import logging
+import boto3
 from celery import shared_task
 from celery.exceptions import MaxRetriesExceededError
 from public.tasks.sync_aws import SyncAws
+from public.utils.aws import get_route53_client
+from ip_lookup_app.models import Route53Record
+from ip_lookup_app.redis_utils import update_task_status
+from django.utils import timezone
 
 # 配置日志
 logger = logging.getLogger(__name__)
+
+
+
+@shared_task
+def apply_route53_change(task_id, record_id, new_data):
+    """
+    异步任务：更新AWS Route53记录，并更新本地数据库
+    """
+
+    route53 = get_route53_client()
+
+    try:
+        record = Route53Record.objects.get(id=record_id)
+    except Route53Record.DoesNotExist:
+        update_task_status(task_id, 'failed')
+        return
+
+    try:
+        # 执行AWS更新
+        change_batch = {
+            'Changes': [
+                {
+                    'Action': 'UPSERT',
+                    'ResourceRecordSet': {
+                        'Name': new_data.get('record_name', record.record_name),
+                        'Type': new_data.get('record_type', record.record_type),
+                        'TTL': new_data.get('ttl', record.ttl) or 300,
+                        'ResourceRecords': [
+                            {'Value': v.strip()} for v in new_data.get('value', record.value.split(',')) if v
+                        ],
+                    }
+                }
+            ]
+        }
+
+        hosted_zone_id = record.hosted_zone_id
+        route53.change_resource_record_sets(
+            HostedZoneId=hosted_zone_id,
+            ChangeBatch=change_batch
+        )
+
+        # 更新本地数据库
+        record.record_name = new_data.get('record_name', record.record_name)
+        record.record_type = new_data.get('record_type', record.record_type)
+        record.ttl = new_data.get('ttl', record.ttl)
+        val_list = new_data.get('value')
+        if val_list:
+            record.value = ",".join(val_list)
+        record.save()
+
+        update_task_status(task_id, 'completed')
+
+    except Exception as e:
+        print("Error in apply_route53_change:", e)
+        update_task_status(task_id, 'failed')
+
+
+
 
 @shared_task(bind=True, autoretry_for=(Exception,), max_retries=3, default_retry_delay=60)
 def sync_aws_data(self):

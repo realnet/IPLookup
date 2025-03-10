@@ -469,6 +469,6 @@ class SyncAws:
                             "last_updated": now(),
                         },
                     )
-            print("✅ Route 53 记录同步完成")
+            print("✅ Route 53 sync complete")
         except Exception as e:
-            print(f"❌ Route 53 记录同步失败: {e}")
+            print(f"❌ Route 53 record sync failure: {e}")

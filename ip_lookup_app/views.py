@@ -1,10 +1,6 @@
 import logging
 import ipaddress
 from django.shortcuts import render,redirect
-from rest_framework.views import APIView
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status
 from .models import AWSSubnet, AWSRouteTable, AWSEC2Instance,VPCEndpoint, AWSSecurityGroup, Route53Record,AWSVPC, AWSElasticIP, AzureSubnet, AzureRouteTable, AzureVirtualNetwork, AzureVnet
 from .serializers import AWSSubnetSerializer, AWSVpcEndpointSerializer, AWSEC2InstanceSerializer,AWSRoute53RecordSerializer, AWSElasticIPSerializer, AWSSecurityGroupSerializer, AWSRouteTableSerializer, AWSVPCSerializer, AzureSubnetSerializer, AzureRouteTableSerializer, AzureVirtualNetworkSerializer, AzureVnetSerializer
 from django.http import JsonResponse
@@ -12,6 +8,18 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from rest_framework.decorators import api_view
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+from ip_lookup_app.models import Route53Record
+from ip_lookup_app.tasks import apply_route53_change
+from ip_lookup_app.redis_utils import (
+    create_task_in_redis, get_all_tasks, get_task
+)
+
 
 
 logger = logging.getLogger(__name__)
@@ -394,15 +402,176 @@ def user_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, "登录成功！")
+            messages.success(request, "Login Sucessful！")
             return redirect("index")  # 登录成功跳转到 index 页面
         else:
-            messages.error(request, "用户名或密码错误！")
+            messages.error(request, "Username or Password Not Correct！")
 
     return render(request, "login.html")
 
 
 def user_logout(request):
     logout(request)
-    messages.info(request, "已成功退出登录！")
+    messages.info(request, "Logout！")
     return redirect("login")
+
+
+# ip_lookup_app/views.py
+def get_route53_record(request, record_id):
+    try:
+        record = Route53Record.objects.get(id=record_id)
+        data = {
+            'record_name': record.record_name,
+            'record_type': record.record_type,
+            'routing_policy': record.routing_policy,
+            'value': record.value,  # 确保这里的 record.value 是数组类型
+            'ttl': record.ttl
+        }
+        return JsonResponse(data)
+    except Route53Record.DoesNotExist:
+        return JsonResponse({'error': 'Record not found'}, status=404)
+
+#############################
+#  Route53 Record 视图示例  #
+#############################
+class Route53RecordView(APIView):
+    """
+    获取全部Route53记录
+    """
+
+    @csrf_exempt
+    @swagger_auto_schema(operation_description="get all Route53Record")
+    def get(self, request):
+        records = Route53Record.objects.all().values()
+        return Response(list(records))
+
+class Route53RecordDetailView(APIView):
+    """
+    获取/更新/删除单个Route53Record
+    """
+    @swagger_auto_schema(operation_description="Get single Route53Record detail")
+    def get(self, request, pk):
+        try:
+            record = Route53Record.objects.get(pk=pk)
+            return Response({
+                'id': record.id,
+                'record_name': record.record_name,
+                'record_type': record.record_type,
+                'ttl': record.ttl,
+                'value': record.value,
+            })
+        except Route53Record.DoesNotExist:
+            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+#########################
+#  任务相关 API  #
+#########################
+from rest_framework import permissions
+class Route53TaskListView(APIView):
+    """
+    列表所有任务 or 创建新任务
+    """
+    permission_classes = [permissions.AllowAny]  # 添加此行
+
+    @swagger_auto_schema(operation_description="Get all tasks")
+    def get(self, request):
+        tasks = get_all_tasks()  # 从Redis获取
+        return Response(tasks)
+
+    @swagger_auto_schema(
+        operation_description="Create new change task (pending)",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'record_id': openapi.Schema(type=openapi.TYPE_INTEGER, description='Route53Record ID'),
+                'new_data': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'record_name': openapi.Schema(type=openapi.TYPE_STRING),
+                        'record_type': openapi.Schema(type=openapi.TYPE_STRING),
+                        'ttl': openapi.Schema(type=openapi.TYPE_INTEGER),
+                        'value': openapi.Schema(type=openapi.TYPE_ARRAY, items=openapi.Items(type=openapi.TYPE_STRING))
+                    }
+                )
+            }
+        )
+    )
+    def post(self, request):
+        """
+        创建一个变更任务(状态pending)，存入Redis
+        """
+        record_id = request.data.get('record_id')
+        new_data = request.data.get('new_data', {})
+
+        try:
+            record = Route53Record.objects.get(id=record_id)
+        except Route53Record.DoesNotExist:
+            return Response({'error': 'Record not found'}, status=404)
+
+        # old_data 仅供参考
+        old_data = {
+            'record_name': record.record_name,
+            'record_type': record.record_type,
+            'ttl': record.ttl,
+            'value': record.value.split(',') if record.value else []
+        }
+
+        # 生成唯一task_id，可用UUID
+        import uuid
+        task_id = str(uuid.uuid4())
+
+        # 写入Redis
+        create_task_in_redis(task_id, old_data, new_data)
+
+        return Response({'message': 'Task created', 'task_id': task_id}, status=201)
+
+
+class Route53TaskDetailView(APIView):
+    """
+    获取单个任务详情
+    """
+    @swagger_auto_schema(operation_description="Get single task detail")
+    def get(self, request, task_id):
+        task_data = get_task(task_id)
+        if not task_data:
+            return Response({'error': 'Task not found'}, status=404)
+        return Response(task_data)
+
+
+@swagger_auto_schema(
+    method='post',
+    operation_description="Confirm Change task",
+    manual_parameters=[
+        openapi.Parameter(
+            'task_id',
+            openapi.IN_PATH,
+            description="Task ID",
+            type=openapi.TYPE_STRING
+        )
+    ],
+    # 如果你需要定义 request_body 或 responses，可以继续写
+)
+
+@api_view(['POST'])
+def apply_task_api(request, task_id):
+    """
+    用户点击“确认变更” -> 调用此API -> Celery异步执行
+    """
+    task_data = get_task(task_id)
+    if not task_data:
+        return Response({'error': 'Task not found'}, status=404)
+
+    # 需要知道对应Route53Record的id
+    # new_data里保存了变更字段
+    new_data = task_data['new_data']
+    # 这里可以增加 record_id, 你可以保存在 new_data 里，也可保存在 old_data
+    # 或者在 create_task_in_redis 时一并存task_data['record_id']
+    record_id = request.data.get('record_id')
+    if not record_id:
+        return Response({'error': 'record_id is required'}, status=400)
+
+    # 调用Celery异步任务
+    apply_route53_change.delay(task_id, record_id, new_data)
+
+    return Response({'message': 'Task is being processed'})

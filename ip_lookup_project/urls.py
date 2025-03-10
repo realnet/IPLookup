@@ -20,6 +20,9 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.conf import settings
 from django.conf.urls.static import static
+from ip_lookup_app import views
+
+
 
 
 schema_view = get_schema_view(
@@ -36,6 +39,15 @@ urlpatterns = [
     # path('api/', include('ip_lookup_app.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('', include('ip_lookup_app.urls')),
+
+    path('api/aws/route53/records/', views.Route53RecordView.as_view(), name='dnsrecord-list'),
+    path('api/aws/route53/records/<int:pk>/', views.Route53RecordDetailView.as_view(), name='dnsrecord-detail'),
+
+    path('api/aws/route53/tasks/', views.Route53TaskListView.as_view(), name='task-list'),
+    path('api/aws/route53/tasks/<str:task_id>/', views.Route53TaskDetailView.as_view(), name='task-detail'),
+    path('api/aws/route53/tasks/<str:task_id>/apply/', views.apply_task_api, name='task-apply'),
+    path('api/aws/route53/<int:record_id>/', views.get_route53_record, name='get_route53_record'),
+
 ]
 
 # 仅在 DEBUG 模式下提供静态文件

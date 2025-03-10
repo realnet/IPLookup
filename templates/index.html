@@ -6,6 +6,7 @@
   <title>首页</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link rel="stylesheet" href="{% static 'css/edit-modal.css' %}">
 </head>
 <body>
   <header class="top-bar">
@@ -52,6 +53,7 @@
             <li><a onclick="showPlaceholder('Azure安全组信息')">安全组信息</a></li>
           </ul>
         </li>
+        <li><a onclick="showTasks()"> 任务列表</a></li>
       </ul>
     </div>
 
@@ -62,9 +64,18 @@
     </div>
   </div>
 
+  <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+  <!-- 引入模态框 HTML -->
+  {% include 'edit-modal.html' %}
+  <script>
+    const LOGOUT_URL = "{% url 'logout' %}";  // 让 JavaScript 代码获取 Django 登出 URL
+  </script>
   <!-- 引入外部JS -->
   <script src="{% static 'js/common.js' %}"></script>
   <script src="{% static 'js/tableLoader.js' %}"></script>
+  <script src="{% static 'js/route53.js' %}"></script>
   <script src="{% static 'js/ipLookup.js' %}"></script>
+  <script src="{% static 'js/edit-modal.js' %}"></script>
+  <script src="{% static 'js/logout_timer.js' %}" defer></script>
 </body>
 </html>
