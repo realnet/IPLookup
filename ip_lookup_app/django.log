@@ -6820,3 +6820,658 @@ Sync VPC Endpointvpce-0a649c7a2f67f2098
 Found credentials in shared credentials file: ~/.aws/credentials
 Found credentials in shared credentials file: ~/.aws/credentials
 Found credentials in shared credentials file: ~/.aws/credentials
+Error processing Load Balancer sin-int-nlb-external: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+ip_lookup_app.models.AWSLoadBalancer.DoesNotExist: AWSLoadBalancer matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 506, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 521, in _process_load_balancer
+    lb_obj, _ = AWSLoadBalancer.objects.update_or_create(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 918, in get_or_create
+    params = self._extract_model_params(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 999, in _extract_model_params
+    raise exceptions.FieldError(
+django.core.exceptions.FieldError: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Error processing Load Balancer sin-int-alb-external: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+ip_lookup_app.models.AWSLoadBalancer.DoesNotExist: AWSLoadBalancer matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 506, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 521, in _process_load_balancer
+    lb_obj, _ = AWSLoadBalancer.objects.update_or_create(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 918, in get_or_create
+    params = self._extract_model_params(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 999, in _extract_model_params
+    raise exceptions.FieldError(
+django.core.exceptions.FieldError: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Error processing Load Balancer sin-cob-alb-internal: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+ip_lookup_app.models.AWSLoadBalancer.DoesNotExist: AWSLoadBalancer matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 506, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 521, in _process_load_balancer
+    lb_obj, _ = AWSLoadBalancer.objects.update_or_create(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 918, in get_or_create
+    params = self._extract_model_params(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 999, in _extract_model_params
+    raise exceptions.FieldError(
+django.core.exceptions.FieldError: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Error processing Load Balancer sin-hub-alb-internal: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+ip_lookup_app.models.AWSLoadBalancer.DoesNotExist: AWSLoadBalancer matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 506, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 521, in _process_load_balancer
+    lb_obj, _ = AWSLoadBalancer.objects.update_or_create(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 918, in get_or_create
+    params = self._extract_model_params(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 999, in _extract_model_params
+    raise exceptions.FieldError(
+django.core.exceptions.FieldError: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Error processing Load Balancer sin-nob-alb-internal: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+ip_lookup_app.models.AWSLoadBalancer.DoesNotExist: AWSLoadBalancer matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 506, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 521, in _process_load_balancer
+    lb_obj, _ = AWSLoadBalancer.objects.update_or_create(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 918, in get_or_create
+    params = self._extract_model_params(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 999, in _extract_model_params
+    raise exceptions.FieldError(
+django.core.exceptions.FieldError: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Error processing Load Balancer a3eb08996f2cf4350859817600a8e272: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+ip_lookup_app.models.AWSLoadBalancer.DoesNotExist: AWSLoadBalancer matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 506, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 521, in _process_load_balancer
+    lb_obj, _ = AWSLoadBalancer.objects.update_or_create(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 918, in get_or_create
+    params = self._extract_model_params(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 999, in _extract_model_params
+    raise exceptions.FieldError(
+django.core.exceptions.FieldError: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Error processing Load Balancer hkg-hub-nlb-internal: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+ip_lookup_app.models.AWSLoadBalancer.DoesNotExist: AWSLoadBalancer matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 506, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 521, in _process_load_balancer
+    lb_obj, _ = AWSLoadBalancer.objects.update_or_create(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 918, in get_or_create
+    params = self._extract_model_params(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 999, in _extract_model_params
+    raise exceptions.FieldError(
+django.core.exceptions.FieldError: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Error processing Load Balancer hkg-int-nlb-external: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+ip_lookup_app.models.AWSLoadBalancer.DoesNotExist: AWSLoadBalancer matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 506, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 521, in _process_load_balancer
+    lb_obj, _ = AWSLoadBalancer.objects.update_or_create(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 918, in get_or_create
+    params = self._extract_model_params(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 999, in _extract_model_params
+    raise exceptions.FieldError(
+django.core.exceptions.FieldError: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Error processing Load Balancer hkg-int-alb-external: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+ip_lookup_app.models.AWSLoadBalancer.DoesNotExist: AWSLoadBalancer matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 506, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 521, in _process_load_balancer
+    lb_obj, _ = AWSLoadBalancer.objects.update_or_create(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 918, in get_or_create
+    params = self._extract_model_params(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 999, in _extract_model_params
+    raise exceptions.FieldError(
+django.core.exceptions.FieldError: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Error processing Load Balancer hkg-cob-alb-internal: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+ip_lookup_app.models.AWSLoadBalancer.DoesNotExist: AWSLoadBalancer matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 506, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 521, in _process_load_balancer
+    lb_obj, _ = AWSLoadBalancer.objects.update_or_create(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 918, in get_or_create
+    params = self._extract_model_params(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 999, in _extract_model_params
+    raise exceptions.FieldError(
+django.core.exceptions.FieldError: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Error processing Load Balancer hkg-tst-alb-internal: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+ip_lookup_app.models.AWSLoadBalancer.DoesNotExist: AWSLoadBalancer matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 506, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 521, in _process_load_balancer
+    lb_obj, _ = AWSLoadBalancer.objects.update_or_create(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 918, in get_or_create
+    params = self._extract_model_params(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 999, in _extract_model_params
+    raise exceptions.FieldError(
+django.core.exceptions.FieldError: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Error processing Load Balancer hkg-nob-alb-internal: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+ip_lookup_app.models.AWSLoadBalancer.DoesNotExist: AWSLoadBalancer matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 506, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 521, in _process_load_balancer
+    lb_obj, _ = AWSLoadBalancer.objects.update_or_create(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 918, in get_or_create
+    params = self._extract_model_params(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 999, in _extract_model_params
+    raise exceptions.FieldError(
+django.core.exceptions.FieldError: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Error processing Load Balancer hkg-hub-alb-internal: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+ip_lookup_app.models.AWSLoadBalancer.DoesNotExist: AWSLoadBalancer matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 506, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 521, in _process_load_balancer
+    lb_obj, _ = AWSLoadBalancer.objects.update_or_create(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 918, in get_or_create
+    params = self._extract_model_params(defaults, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 999, in _extract_model_params
+    raise exceptions.FieldError(
+django.core.exceptions.FieldError: Invalid field name(s) for model AWSLoadBalancer: 'region'.
+Error processing Load Balancer sin-int-nlb-external: Cannot resolve keyword 'target_group_arn' into field. Choices are: arn, id, load_balancer, load_balancer_id, name, port, protocol, target_type, vpc_id
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 506, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 536, in _process_load_balancer
+    self._process_listener_and_rule(lb_obj, listener)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 567, in _process_listener_and_rule
+    target_group_obj = AWSTargetGroup.objects.filter(target_group_arn=target_group_arns).first()
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1427, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1237, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1725, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'target_group_arn' into field. Choices are: arn, id, load_balancer, load_balancer_id, name, port, protocol, target_type, vpc_id
+Error processing Load Balancer a3eb08996f2cf4350859817600a8e272: Cannot resolve keyword 'target_group_arn' into field. Choices are: arn, id, load_balancer, load_balancer_id, name, port, protocol, target_type, vpc_id
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 506, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 536, in _process_load_balancer
+    self._process_listener_and_rule(lb_obj, listener)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 567, in _process_listener_and_rule
+    target_group_obj = AWSTargetGroup.objects.filter(target_group_arn=target_group_arns).first()
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1427, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1237, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1725, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'target_group_arn' into field. Choices are: arn, id, load_balancer, load_balancer_id, name, port, protocol, target_type, vpc_id
+Error processing Load Balancer hkg-hub-nlb-internal: Cannot resolve keyword 'target_group_arn' into field. Choices are: arn, id, load_balancer, load_balancer_id, name, port, protocol, target_type, vpc_id
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 506, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 536, in _process_load_balancer
+    self._process_listener_and_rule(lb_obj, listener)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 567, in _process_listener_and_rule
+    target_group_obj = AWSTargetGroup.objects.filter(target_group_arn=target_group_arns).first()
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1427, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1237, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1725, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'target_group_arn' into field. Choices are: arn, id, load_balancer, load_balancer_id, name, port, protocol, target_type, vpc_id
+Error processing Load Balancer hkg-int-nlb-external: Cannot resolve keyword 'target_group_arn' into field. Choices are: arn, id, load_balancer, load_balancer_id, name, port, protocol, target_type, vpc_id
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 506, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 536, in _process_load_balancer
+    self._process_listener_and_rule(lb_obj, listener)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 567, in _process_listener_and_rule
+    target_group_obj = AWSTargetGroup.objects.filter(target_group_arn=target_group_arns).first()
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1427, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1237, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\db\models\sql\query.py", line 1725, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'target_group_arn' into field. Choices are: arn, id, load_balancer, load_balancer_id, name, port, protocol, target_type, vpc_id
+Error processing Load Balancer sin-int-nlb-external: _process_target_group() missing 1 required positional argument: 'elbv2'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg)
+TypeError: _process_target_group() missing 1 required positional argument: 'elbv2'
+Error processing Load Balancer sin-int-alb-external: _process_target_group() missing 1 required positional argument: 'elbv2'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg)
+TypeError: _process_target_group() missing 1 required positional argument: 'elbv2'
+Error processing Load Balancer sin-cob-alb-internal: _process_target_group() missing 1 required positional argument: 'elbv2'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg)
+TypeError: _process_target_group() missing 1 required positional argument: 'elbv2'
+Error processing Load Balancer sin-hub-alb-internal: _process_target_group() missing 1 required positional argument: 'elbv2'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg)
+TypeError: _process_target_group() missing 1 required positional argument: 'elbv2'
+Error processing Load Balancer sin-nob-alb-internal: _process_target_group() missing 1 required positional argument: 'elbv2'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg)
+TypeError: _process_target_group() missing 1 required positional argument: 'elbv2'
+Error processing Load Balancer a3eb08996f2cf4350859817600a8e272: _process_target_group() missing 1 required positional argument: 'elbv2'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg)
+TypeError: _process_target_group() missing 1 required positional argument: 'elbv2'
+Error processing Load Balancer hkg-hub-nlb-internal: _process_target_group() missing 1 required positional argument: 'elbv2'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg)
+TypeError: _process_target_group() missing 1 required positional argument: 'elbv2'
+Error processing Load Balancer hkg-int-nlb-external: _process_target_group() missing 1 required positional argument: 'elbv2'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg)
+TypeError: _process_target_group() missing 1 required positional argument: 'elbv2'
+Error processing Load Balancer hkg-int-alb-external: _process_target_group() missing 1 required positional argument: 'elbv2'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg)
+TypeError: _process_target_group() missing 1 required positional argument: 'elbv2'
+Error processing Load Balancer hkg-cob-alb-internal: _process_target_group() missing 1 required positional argument: 'elbv2'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg)
+TypeError: _process_target_group() missing 1 required positional argument: 'elbv2'
+Error processing Load Balancer hkg-tst-alb-internal: _process_target_group() missing 1 required positional argument: 'elbv2'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg)
+TypeError: _process_target_group() missing 1 required positional argument: 'elbv2'
+Error processing Load Balancer hkg-nob-alb-internal: _process_target_group() missing 1 required positional argument: 'elbv2'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg)
+TypeError: _process_target_group() missing 1 required positional argument: 'elbv2'
+Error processing Load Balancer hkg-hub-alb-internal: _process_target_group() missing 1 required positional argument: 'elbv2'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg)
+TypeError: _process_target_group() missing 1 required positional argument: 'elbv2'
+Error processing Load Balancer sin-int-nlb-external: 'HealthStatus'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg,elbv2)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 621, in _process_target_group
+    health_status = target['HealthStatus']
+KeyError: 'HealthStatus'
+Error processing Load Balancer sin-int-alb-external: 'HealthStatus'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg,elbv2)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 621, in _process_target_group
+    health_status = target['HealthStatus']
+KeyError: 'HealthStatus'
+Error processing Load Balancer sin-cob-alb-internal: 'HealthStatus'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg,elbv2)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 621, in _process_target_group
+    health_status = target['HealthStatus']
+KeyError: 'HealthStatus'
+Error processing Load Balancer sin-hub-alb-internal: 'HealthStatus'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg,elbv2)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 621, in _process_target_group
+    health_status = target['HealthStatus']
+KeyError: 'HealthStatus'
+Error processing Load Balancer sin-nob-alb-internal: 'HealthStatus'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg,elbv2)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 621, in _process_target_group
+    health_status = target['HealthStatus']
+KeyError: 'HealthStatus'
+Error processing Load Balancer a3eb08996f2cf4350859817600a8e272: 'HealthStatus'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg,elbv2)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 621, in _process_target_group
+    health_status = target['HealthStatus']
+KeyError: 'HealthStatus'
+Error processing Load Balancer hkg-hub-nlb-internal: 'HealthStatus'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg,elbv2)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 621, in _process_target_group
+    health_status = target['HealthStatus']
+KeyError: 'HealthStatus'
+Error processing Load Balancer hkg-int-nlb-external: 'HealthStatus'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg,elbv2)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 621, in _process_target_group
+    health_status = target['HealthStatus']
+KeyError: 'HealthStatus'
+Error processing Load Balancer hkg-int-alb-external: 'HealthStatus'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg,elbv2)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 621, in _process_target_group
+    health_status = target['HealthStatus']
+KeyError: 'HealthStatus'
+Error processing Load Balancer hkg-cob-alb-internal: 'HealthStatus'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg,elbv2)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 621, in _process_target_group
+    health_status = target['HealthStatus']
+KeyError: 'HealthStatus'
+Error processing Load Balancer hkg-tst-alb-internal: 'HealthStatus'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg,elbv2)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 621, in _process_target_group
+    health_status = target['HealthStatus']
+KeyError: 'HealthStatus'
+Error processing Load Balancer hkg-nob-alb-internal: 'HealthStatus'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg,elbv2)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 621, in _process_target_group
+    health_status = target['HealthStatus']
+KeyError: 'HealthStatus'
+Error processing Load Balancer hkg-hub-alb-internal: 'HealthStatus'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 507, in sync_load_balancing
+    self._process_load_balancer(region, elbv2, lb)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 542, in _process_load_balancer
+    self._process_target_group(lb_obj, tg,elbv2)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 621, in _process_target_group
+    health_status = target['HealthStatus']
+KeyError: 'HealthStatus'
+Failed to fetch Load Balancers for ap-southeast-1: An error occurred (ExpiredToken) when calling the DescribeLoadBalancers operation: The security token included in the request is expired
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 498, in sync_load_balancing
+    load_balancers = elbv2.describe_load_balancers()
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\botocore\client.py", line 569, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\botocore\client.py", line 1023, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.exceptions.ClientError: An error occurred (ExpiredToken) when calling the DescribeLoadBalancers operation: The security token included in the request is expired
+Failed to fetch Load Balancers for ap-east-1: An error occurred (ExpiredToken) when calling the DescribeLoadBalancers operation: The security token included in the request is expired
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 498, in sync_load_balancing
+    load_balancers = elbv2.describe_load_balancers()
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\botocore\client.py", line 569, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\botocore\client.py", line 1023, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.exceptions.ClientError: An error occurred (ExpiredToken) when calling the DescribeLoadBalancers operation: The security token included in the request is expired
+Failed to fetch Load Balancers for ap-northeast-1: An error occurred (ExpiredToken) when calling the DescribeLoadBalancers operation: The security token included in the request is expired
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 498, in sync_load_balancing
+    load_balancers = elbv2.describe_load_balancers()
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\botocore\client.py", line 569, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\botocore\client.py", line 1023, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.exceptions.ClientError: An error occurred (ExpiredToken) when calling the DescribeLoadBalancers operation: The security token included in the request is expired

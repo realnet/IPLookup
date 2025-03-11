@@ -7,6 +7,8 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
   <link rel="stylesheet" href="{% static 'css/edit-modal.css' %}">
+  <link rel="stylesheet" href="{% static 'css/target-groups.css' %}">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 </head>
 <body>
   <header class="top-bar">
@@ -22,7 +24,6 @@
       <h2>网络运维服务</h2>
       <ul class="menu">
         <li>
-          <!-- 移除下拉箭头 -->
           <a href="#">查询功能</a>
           <ul class="submenu">
             <li><a onclick="showIpLookup()">IP查询</a></li>
@@ -31,7 +32,6 @@
           </ul>
         </li>
         <li>
-          <!-- 移除下拉箭头 -->
           <a href="#">AWS</a>
           <ul class="submenu">
             <li><a onclick="loadDataTable('/api/aws/ec2/','EC2实例信息','ec2-table', ec2Columns)">主机信息</a></li>
@@ -41,10 +41,19 @@
             <li><a onclick="loadDataTable('/api/aws/eip/','EIP信息','eip-table', eipColumns)">EIP 信息</a></li>
             <li><a onclick="loadDataTable('/api/aws/vpc-endpoint/', 'VPC Endpoint 信息', 'vpc-endpoint-table', vpcEndpointColumns)">VPC Endpoint 信息</a></li>
             <li><a onclick="loadDataTable('/api/aws/route53/','Route53','route53-table', route53Columns)">Route53 信息</a></li>
+            <li>
+              <a href="#">Load balancing</a>
+              <ul class="submenu">
+                <li><a onclick="loadDataTable('/api/aws/load-balancers/','Load balancers','lb-table', awslbColumns)">Load Balancers</a></li>
+                <li><a onclick="loadDataTable('/api/aws/listener-rules/','Listener Rules','lr-table', awslrColumns)">Listener Rules</a></li>
+                <li><a href="#" id="menu-target-groups">Target Groups</a></li>
+{#              <li><a onclick="loadTargetGroups()">Target Groups</a></li>#}
+{#              <li><a onclick="loadDataTable('/api/aws/target-groups/','Target Groups','tg-table', awstgColumns)">Target Groups</a></li>#}
+              </ul>
+            </li>
           </ul>
         </li>
         <li>
-          <!-- 移除下拉箭头 -->
           <a href="#">Azure</a>
           <ul class="submenu">
             <li><a onclick="showPlaceholder('Azure主机信息')">主机信息</a></li>
@@ -53,29 +62,57 @@
             <li><a onclick="showPlaceholder('Azure安全组信息')">安全组信息</a></li>
           </ul>
         </li>
-        <li><a onclick="showTasks()"> 任务列表</a></li>
+        <li><a onclick="showTasks()">任务列表</a></li>
       </ul>
     </div>
 
     <!-- 右侧内容区 -->
     <div class="content" id="main-content">
-      <h1>欢迎来到 Network Home</h1>
-      <p>请选择左侧菜单进行操作。</p>
+      <div id="welcome-section">
+        <h1>欢迎来到 Network Home</h1>
+        <p>请选择左侧菜单进行操作。</p>
+      </div>
+
+        <!-- Target Groups 容器 -->
+      <div id="target-groups-container" style="display: none;">
+            <h2>Target Groups</h2>
+            <table id="tg-table" class="tg-table">
+              <thead>
+                <tr>
+                  <th>Target Group Name</th>
+                  <th>Protocol</th>
+                  <th>Port</th>
+                  <th>Target Type</th>
+                  <th>VPC ID</th>
+                  <th>Load Balancer</th>
+                </tr>
+              </thead>
+              <tbody id="tg-table-body">
+                <!-- JS 动态填充 -->
+              </tbody>
+            </table>
+            <div id="pagination-container" style="margin-top: 10px; text-align: center;"></div>
+      </div>
+      <!-- 用于显示选中 TG 的详情 -->
+      <div id="tg-detail-container" style="margin-top: 20px; border: 1px solid #ccc; padding: 10px; display:none;">
+      </div>
     </div>
   </div>
 
   <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-  <!-- 引入模态框 HTML -->
   {% include 'edit-modal.html' %}
   <script>
-    const LOGOUT_URL = "{% url 'logout' %}";  // 让 JavaScript 代码获取 Django 登出 URL
+    const LOGOUT_URL = "{% url 'logout' %}";
   </script>
-  <!-- 引入外部JS -->
   <script src="{% static 'js/common.js' %}"></script>
   <script src="{% static 'js/tableLoader.js' %}"></script>
   <script src="{% static 'js/route53.js' %}"></script>
   <script src="{% static 'js/ipLookup.js' %}"></script>
   <script src="{% static 'js/edit-modal.js' %}"></script>
   <script src="{% static 'js/logout_timer.js' %}" defer></script>
+
+  <!-- 重点：引入 target-groups.js -->
+  <script src="{% static 'js/target-groups.js' %}"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 </body>
 </html>

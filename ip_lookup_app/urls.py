@@ -27,6 +27,8 @@ from .views import (
     azure_page,
     aws_sg_data,
     aws_sg_detail,
+    get_target_groups,
+    get_target_group_detail
 )
 
 
@@ -38,6 +40,10 @@ urlpatterns = [
     # API：返回 JSON
     path('api/ip-lookup/', IPLookupView.as_view(), name='ip-lookup'),
 
+    # 让target group的查询比AWSDataView更早
+    path('api/aws/target-groups/<int:pk>/', get_target_group_detail, name='target_group_detail'),
+    path('api/aws/target-groups/', get_target_groups, name='target_groups'),
+
     # tasks/Azure 数据API
     path('api/aws/<str:table>/', AWSDataView.as_view(), name='aws-data'),
     path('api/aws/security-group/', aws_sg_data, name='aws-sg'),
@@ -48,7 +54,11 @@ urlpatterns = [
     path('aws/', aws_page, name='aws-page'),
     path('azure/', azure_page, name='azure-page'),
 
+
     #登录配置
     path("login/", user_login, name="login"),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+
+
+
 ]

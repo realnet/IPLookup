@@ -1,0 +1,23 @@
+.tg-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tg-table th, .tg-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.tg-table th {
+    background-color: #f2f2f2;
+}
+
+.tg-details {
+    background-color: #f9f9f9;
+}
+
+.tg-details ul {
+    list-style-type: none;
+    padding: 0;
+}

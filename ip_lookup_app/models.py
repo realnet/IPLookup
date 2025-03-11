@@ -153,6 +153,58 @@ class Route53Record(models.Model):
     def __str__(self):
         return f"{self.record_name} ({self.record_type})"
 
+class AWSLoadBalancer(models.Model):
+    name = models.CharField(max_length=255)
+    dns_name = models.CharField(max_length=255)
+    state = models.CharField(max_length=50)
+    vpc_id = models.CharField(max_length=50)
+    availability_zone = models.CharField(max_length=255)
+    type = models.CharField(max_length=50)
+    region = models.CharField(max_length=50,default='unknown')  # 如果没有这个字段，添加它
+
+    def __str__(self):
+        return self.name
+
+
+class AWSListenerAndRule(models.Model):
+    load_balancer = models.ForeignKey(AWSLoadBalancer, on_delete=models.CASCADE)
+    protocol_port = models.CharField(max_length=50)
+    # 存储 forward 的 Target Group 名称
+    forward_target_group = models.CharField(max_length=255, blank=True, null=True)
+    # 存储 fixed-response 相关信息
+    response_code = models.CharField(max_length=10, blank=True, null=True)
+    response_body = models.TextField(blank=True, null=True)
+    response_content_type = models.CharField(max_length=50, blank=True, null=True)
+    # 其他字段
+    security_policy = models.CharField(max_length=255, blank=True, null=True)
+    default_ssl_tls = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.load_balancer.name} - {self.protocol_port}"
+
+
+class AWSTargetGroup(models.Model):
+    name = models.CharField(max_length=255)
+    arn = models.CharField(max_length=255)
+    port = models.IntegerField()
+    protocol = models.CharField(max_length=50)
+    target_type = models.CharField(max_length=50)
+    load_balancer = models.ForeignKey(AWSLoadBalancer, on_delete=models.CASCADE)
+    vpc_id = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+class AWSTarget(models.Model):
+    target_group = models.ForeignKey(AWSTargetGroup, on_delete=models.CASCADE)  # 关联 Target Group
+    ip_address = models.CharField(max_length=255)  # 目标的 IP 地址
+    port = models.IntegerField()  # 目标的端口
+    availability_zone = models.CharField(max_length=255)  # 可用区
+    health_status = models.CharField(max_length=50)  # 健康状态
+    health_status_details = models.TextField(blank=True, null=True)  # 健康状态详情
+
+    def __str__(self):
+        return f"{self.ip_address}:{self.port} ({self.health_status})"
 
 
 # Azure模型
@@ -190,3 +242,5 @@ class AzureRouteTable(models.Model):
 
     def __str__(self):
         return self.address_prefix
+
+

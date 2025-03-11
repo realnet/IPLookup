@@ -12,7 +12,7 @@
 #---------------------------
 """
 from rest_framework import serializers
-from .models import AWSVPC, AWSSubnet,AWSEC2Instance, Route53Record,AWSSecurityGroup, AWSElasticIP, AWSRouteTable, VPCEndpoint,AzureVirtualNetwork, AzureVnet, AzureSubnet, AzureRouteTable
+from .models import AWSVPC, AWSSubnet,AWSEC2Instance,AWSLoadBalancer,AWSTargetGroup,AWSListenerAndRule, AWSTarget,Route53Record,AWSSecurityGroup, AWSElasticIP, AWSRouteTable, VPCEndpoint,AzureVirtualNetwork, AzureVnet, AzureSubnet, AzureRouteTable
 
 class AWSEC2InstanceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -53,6 +53,30 @@ class AWSRoute53RecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = Route53Record
         fields = '__all__'
+
+class AWSLoadBalancerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AWSLoadBalancer
+        fields = '__all__'
+
+class AWSTargetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AWSTarget
+        fields = ['ip_address', 'port', 'availability_zone', 'health_status', 'health_status_details']
+
+class AWSTargetGroupSerializer(serializers.ModelSerializer):
+    load_balancer_name = serializers.CharField(source='load_balancer.name', read_only=True)
+    class Meta:
+        model = AWSTargetGroup
+        fields = ['name', 'port', 'protocol', 'target_type', 'vpc_id','load_balancer_name']
+
+class AWSListenerAndRuleSerializer(serializers.ModelSerializer):
+    load_balancer_name = serializers.CharField(source='load_balancer.name', read_only=True)
+
+    class Meta:
+        model = AWSListenerAndRule
+        fields = ['id', 'protocol_port', 'forward_target_group', 'load_balancer_name', 'response_code', 'response_body', 'response_content_type', 'security_policy', 'default_ssl_tls']
+
 
 class AzureVirtualNetworkSerializer(serializers.ModelSerializer):
     class Meta:

@@ -25,20 +25,25 @@ function loadDataTable(apiEndpoint, title, tableId, columns) {
   fetch(apiEndpoint)
     .then(res => res.json())
     .then(data => {
+      console.log('接口返回的数据:', data); // 输出接口返回的数据
       const tbody = document.querySelector(`#${tableId} tbody`);
       tbody.innerHTML = '';
-      data.forEach(item => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = columns.map(col => {
-          // 检查 col 是否有 render 函数
-          if (col.render) {
-            return `<td>${col.render(item)}</td>`;
-          }
-          const val = item[col.field] || '';
-          return `<td>${val}</td>`;
-        }).join('');
-        tbody.appendChild(tr);
-      });
+      if (Array.isArray(data)) {
+        data.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = columns.map(col => {
+            // 检查 col 是否有 render 函数
+            if (col.render) {
+              return `<td>${col.render(item)}</td>`;
+            }
+            const val = item[col.field] || '';
+            return `<td>${val}</td>`;
+          }).join('');
+          tbody.appendChild(tr);
+        });
+      } else {
+        console.error('api response 返回的不是有效的数组数据', data);
+      }
     })
     .catch(err => console.error(err));
 
@@ -47,6 +52,7 @@ function loadDataTable(apiEndpoint, title, tableId, columns) {
     filterTable(tableId, 'search-input');
   });
 }
+
 
 
 function showTasks() {
@@ -152,6 +158,8 @@ function renderTable(title, tableId, columns, data) {
 }
 
 
+
+
 /***********************
  * 各资源列配置
  ***********************/
@@ -225,6 +233,37 @@ const vpcEndpointColumns = [
 console.log("VPC Endpoint Columns Loaded:", vpcEndpointColumns);
 
 
+console.log('这里 tableLoader.js 开始加载');
+// 假设在 tableLoader.js 中添加以下列定义
+const awslbColumns = [
+    { header: "Name", field: "name" },
+    { header: "DNS name", field: "dns_name" },
+    { header: "State", field: "state" },
+    { header: "VPC ID", field: "vpc_id" },
+    { header: "Availability Zone", field: "availability_zone" },
+    { header: "Type", field: "type" }
+];
+console.log('lbColumns 定义完成', awslbColumns);
+
+const awslrColumns = [
+    { header: "Load Balancer", field: "load_balancer_name" },
+    { header: "Protocal&Port", field: "protocol_port" },
+    { header: "Security policy", field: "security_policy" },
+    { header: "Default SSL/TLS", field: "default_ssl_tls" },
+    { header: 'Default Action', field: "forward_target_group"},
+    { header: 'Response Body', field: "response_body"},
+    { header: 'Response Code ', field: "response_code"},
+    { header: 'Response Content Type ', field: "response_content_type"}
+];
+
+const awstgColumns = [
+    { header: "Name", field: "name" },
+    { header: "Port", field: "port" },
+    { header: "Protocol", field: "protocol" },
+    { header: "Target type", field: "target_type" },
+    { header: "Load balancer", field: "load_balancer_name" },
+    { header: "VPC ID", field: "vpc_id" },
+];
 
 
 

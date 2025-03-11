@@ -1,8 +1,14 @@
 import logging
 import ipaddress
 from django.shortcuts import render,redirect
-from .models import AWSSubnet, AWSRouteTable, AWSEC2Instance,VPCEndpoint, AWSSecurityGroup, Route53Record,AWSVPC, AWSElasticIP, AzureSubnet, AzureRouteTable, AzureVirtualNetwork, AzureVnet
-from .serializers import AWSSubnetSerializer, AWSVpcEndpointSerializer, AWSEC2InstanceSerializer,AWSRoute53RecordSerializer, AWSElasticIPSerializer, AWSSecurityGroupSerializer, AWSRouteTableSerializer, AWSVPCSerializer, AzureSubnetSerializer, AzureRouteTableSerializer, AzureVirtualNetworkSerializer, AzureVnetSerializer
+from .models import AWSSubnet, AWSRouteTable, AWSEC2Instance, VPCEndpoint, AWSSecurityGroup, Route53Record, \
+    AWSTargetGroup, AWSLoadBalancer, AWSListenerAndRule, AWSVPC, AWSElasticIP, AzureSubnet, AzureRouteTable, \
+    AzureVirtualNetwork, AzureVnet, AWSTarget
+from .serializers import AWSSubnetSerializer, AWSVpcEndpointSerializer, AWSEC2InstanceSerializer, \
+    AWSRoute53RecordSerializer, AWSLoadBalancerSerializer, AWSTargetGroupSerializer, AWSListenerAndRuleSerializer, \
+    AWSElasticIPSerializer, AWSSecurityGroupSerializer, AWSRouteTableSerializer, AWSVPCSerializer, \
+    AzureSubnetSerializer, AzureRouteTableSerializer, AzureVirtualNetworkSerializer, AzureVnetSerializer, \
+    AWSTargetSerializer
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -219,6 +225,12 @@ class AWSDataView(APIView):
         elif table == "route53":
             route53 = Route53Record.objects.all()
             serializer = AWSRoute53RecordSerializer(route53, many=True)
+        elif table == "load-balancers":
+            lbs = AWSLoadBalancer.objects.all()
+            serializer = AWSLoadBalancerSerializer(lbs, many=True)
+        elif table in ["listener-rules", "listener-and-rules"]:
+            listener_rules = AWSListenerAndRule.objects.all()
+            serializer = AWSListenerAndRuleSerializer(listener_rules, many=True)
         else:
             return Response({'error': 'Invalid table name'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -575,3 +587,53 @@ def apply_task_api(request, task_id):
     apply_route53_change.delay(task_id, record_id, new_data)
 
     return Response({'message': 'Task is being processed'})
+
+
+from django.shortcuts import get_object_or_404
+
+def get_target_groups(request):
+    """
+    返回所有 Target Group 的基础信息
+    """
+    tgs = AWSTargetGroup.objects.all()
+    data = []
+    for tg in tgs:
+        data.append({
+            "id": tg.id,
+            "name": tg.name,
+            "protocol": tg.protocol,
+            "port": tg.port,
+            "target_type": tg.target_type,
+            "vpc_id": tg.vpc_id,
+            "load_balancer_name": tg.load_balancer.name if tg.load_balancer else "",
+        })
+    return JsonResponse(data, safe=False)
+
+def get_target_group_detail(request, pk):
+    """
+    返回指定 Target Group 的详细信息（含 Targets）
+    """
+    tg = get_object_or_404(AWSTargetGroup, pk=pk)
+    # 查询该组下的 Targets
+    targets = AWSTarget.objects.filter(target_group=tg)
+    target_list = []
+    for t in targets:
+        target_list.append({
+            "ip_address": t.ip_address,
+            "port": t.port,
+            "availability_zone": t.availability_zone,
+            "health_status": t.health_status,
+            "health_status_details": t.health_status_details or ""
+        })
+    data = {
+        "id": tg.id,
+        "name": tg.name,
+        "protocol": tg.protocol,
+        "port": tg.port,
+        "target_type": tg.target_type,
+        "vpc_id": tg.vpc_id,
+        "load_balancer_name": tg.load_balancer.name if tg.load_balancer else "",
+        "targets": target_list
+    }
+    return JsonResponse(data)
+
