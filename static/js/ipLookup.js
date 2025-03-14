@@ -1,41 +1,41 @@
 // 显示 IP 查询界面
 function showIpLookup() {
     let content = `
-        <h2>IP 查询</h2>
-        <input type="text" id="ip_input" placeholder="请输入IP地址">
-        <button onclick="lookupIP()">查询</button>
+        <h2>IP Search</h2>
+        <input type="text" id="ip_input" placeholder="Please enter the IP address">
+        <button onclick="lookupIP()">Search</button>
 
-        <h3>EC2 实例信息</h3>
+        <h3>EC2 </h3>
         <table id="ec2_table" class="hidden">
             <thead>
                 <tr>
-                    <th>云厂商</th><th>Region</th><th>类型</th><th>实例 ID</th><th>实例名称</th>
-                    <th>私有 IP</th><th>公网 IP</th><th>实例类型</th><th>状态</th>
+                    <th>Platform</th><th>Region</th><th>Type</th><th>Ins ID</th><th>Ins Name</th>
+                    <th>Private IP</th><th>Public IP</th><th>Ins Type</th><th>Status</th>
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
 
-        <h3>VPC 信息</h3>
+        <h3>VPC </h3>
         <table id="vpc_table" class="hidden">
             <thead>
-                <tr><th>Region</th><th>VPC ID</th><th>VPC 名称</th><th>子网 ID</th><th>子网 CIDR</th></tr>
+                <tr><th>Region</th><th>VPC ID</th><th>VPC Name</th><th>Subnet ID</th><th>Subnet CIDR</th></tr>
             </thead>
             <tbody></tbody>
         </table>
 
-        <h3>安全组信息</h3>
+        <h3>Security Group</h3>
         <table id="sg_table" class="hidden">
             <thead>
-                <tr><th>安全组 ID</th><th>安全组名称</th></tr>
+                <tr><th>SG ID</th><th>SG Name</th></tr>
             </thead>
             <tbody></tbody>
         </table>
 
-        <h3>安全组规则</h3>
+        <h3>SG Rules</h3>
         <table id="sg_detail_table" class="hidden">
             <thead>
-                <tr><th>安全组 ID</th><th>方向</th><th>协议</th><th>端口范围</th><th>来源</th><th>描述</th></tr>
+                <tr><th>SG ID</th><th>Direction</th><th>Protocol</th><th>Port Scope</th><th>Source</th><th>Description</th></tr>
             </thead>
             <tbody></tbody>
         </table>

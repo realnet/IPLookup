@@ -1,107 +1,125 @@
-/* 页面基本样式 */
-body {
+/* 全局基础设置 */
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* 顶部用户信息栏 */
+body {
+  background-color: #f8f9fa; /* 页面主体背景 */
+  margin: 0;
+}
+
+/* 顶部栏 */
 .top-bar {
-  background: #f8f9fa;
-  padding: 10px;
+  background: #343a40;  /* 深色背景 */
+  color: #fff;
+  padding: 10px 20px;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #222;
 }
 
+/* 左侧品牌文字：网络运维服务 */
+.left-brand {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  /* 如果想离左边更近，可加 margin-right: auto; */
+}
+
+/* 将用户信息组放在右侧 */
 .user-info {
+  margin-left: auto; /* 自动挤到右侧 */
   display: flex;
   align-items: center;
   gap: 15px;
-  padding-right: 20px;
 }
 
+/* 退出登录按钮 */
 .logout-btn {
-  background: #0078D4; /* Azure Blue */
-  color: white;
-  padding: 5px 12px;
+  background: #0078D4; /* Azure 蓝 */
+  color: #fff;
+  padding: 6px 14px;
   text-decoration: none;
   border-radius: 5px;
+  transition: background 0.3s;
+  font-size: 14px;
 }
-
 .logout-btn:hover {
-  background: green;
+  background: #005fa3;
 }
 
-/* 页面布局 */
+/* 页面主容器：左侧侧边栏 + 右侧内容 */
 .container {
   display: flex;
   height: 100vh;
+  overflow: hidden; /* 若不想出现整体滚动条，可隐藏 */
 }
 
 /* 侧边栏 */
 .sidebar {
-  width: 220px;
-  background: #f8f9fa; /* 将侧边栏背景色改为与顶部栏一致，假设“网络运维服务” 背景色和顶部栏一样，如果不是请调整成对应颜色 */
-  color: #0078D4;
+  width: 250px;
+  background: #2c3034; /* 深色 */
+  color: #ffffff;      /* 浅灰文字 */
   padding: 20px;
   box-sizing: border-box;
-  height: 100vh;
+  overflow-y: auto;    /* 若菜单过多可单独滚动 */
 }
 
+/* 如果不想在侧边栏再显示标题，可隐藏 sidebar h2 */
 .sidebar h2 {
-  position: absolute;
-  top: 10px;
-  left: 20px;
-  color: #0078D4;
-  font-size: 20px;
-  font-weight: bold;
-  margin: 0;
+  display: none; /* 或者干脆从 HTML 中删除 <h2>网络运维服务</h2> */
 }
 
+/* 菜单列表样式 */
 .sidebar ul {
+  list-style: none;
   margin-top: 10px;
-  padding: 0;
-
 }
 
 .sidebar li {
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
+/* 一级菜单链接 */
 .sidebar a {
   text-decoration: none;
-  color: #0078D4; /* 改变菜单文字颜色与背景色搭配协调，可根据喜好调整 */
+  color: #ffffff;
   display: block;
-  padding: 3px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  transition: background 0.3s, color 0.3s;
+}
+.sidebar a:hover {
+  color: #fff;
+  background: #495057;
 }
 
-.sidebar ul li a:hover {
-  color: green;
-  background: transparent;
-}
-
-/* 下拉菜单 */
+/* 子菜单 (submenu) */
 .submenu {
-  display: block;
   list-style: none;
-  padding-left: 15px;
-  background: #e0f2ff; /* 子菜单背景色保持淡蓝色，可按需调整 */
-}
-
-.submenu + .submenu {
-  margin-top: 2px;
+  color: #ffffff;
+  margin-top: 5px;
+  padding-left: 12px;
+  background: #3e4449;
+  border-left: 3px solid #ffffff;
+  border-radius: 4px;
 }
 
 .submenu li {
-  margin-bottom: 2px;
-  padding: 4px;
-  background: #e0f2ff;
-  border: 1px solid #b3d9ff;
+  margin-bottom: 3px;
 }
 
-.submenu li:hover {
-  background: lightgray;
+.submenu li a {
+  color: #ffffff;
+  background: transparent;
+  padding: 5px 8px;
+}
+.submenu li a:hover {
+  color: #fff;
+  background: #495057;
 }
 
 /* 右侧内容区 */
@@ -110,10 +128,34 @@ body {
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
+  background: #f8f9fa;
 }
 
+/* 欢迎标题、其他标题 */
 h1 {
-  color: #0078D4;
+  color: #813228; /* 标题用品牌蓝 */
+  margin-bottom: 10px;
+}
+
+/* 欢迎标题、其他标题 */
+h2 {
+  color: rgba(0, 120, 212, 0.7);/* 标题用品牌蓝 */
+  margin-bottom: 10px;
+}
+
+/* 搜索容器 */
+.search-container {
+  margin-bottom: 10px;
+}
+.search-container label {
+  font-weight: bold;
+  margin-right: 8px;
+}
+.search-container input[type="text"] {
+  padding: 6px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 /* 表格样式 */
@@ -121,73 +163,59 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 th, td {
   border: 1px solid #ddd;
-  padding: 4px;
-  text-align: left;}
+  padding: 8px;
+  text-align: left;
+}
 
 th {
-  background-color: #e0f2ff; /* 表头背景淡蓝色 */
+  background-color: #e0f2ff;
+  font-weight: 600;
 }
 
-.heading-blue {
-  color: #ADD8E6; /* 标题文字淡蓝色 */
+/* 表格行悬停效果 */
+tr:hover td {
+  background-color: #f2f6f9;
 }
 
+/* 错误提示 */
 .error {
   color: red;
   margin-top: 10px;
 }
 
-/* main.css */
-
-/* 蓝色按钮样式 */
+/* 按钮示例：蓝色按钮 */
 .blue-button {
-    background-color: blue;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
+  background-color: #0078D4;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background 0.3s;
+  margin-right: 6px;
 }
-
 .blue-button:hover {
-    background-color: darkblue;
+  background-color: #005fa3;
 }
 
-/* 红色按钮样式 */
+/* 按钮示例：红色按钮 */
 .red-button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background 0.3s;
 }
-
 .red-button:hover {
-    background-color: darkred;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background-color: #f8f9fa;
+  background-color: darkred;
 }

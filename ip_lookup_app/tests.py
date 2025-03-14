@@ -1,15 +1,17 @@
 import os
+#
 import django
-# Create your tests here.
-# 设置 DJANGO_SETTINGS_MODULE 环境变量
+# # Create your tests here.
+# # 设置 DJANGO_SETTINGS_MODULE 环境变量
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ip_lookup_project.settings')
-# 配置 Django 设置
+# # 配置 Django 设置
 django.setup()
-
-import unittest
-from django.test import TestCase
-from ip_lookup_app.tasks import sync_aws_data
-from ip_lookup_app.models import AWSVPC, AWSSubnet, AWSRouteTable,AWSEC2Instance,AWSRoute,AWSSecurityGroup,AWSSecurityGroupRule
+#
+# import unittest
+# from django.test import TestCase
+from public.tasks.sync_aws import SyncAws
+# from config import AWS_REGIONS
+# from ip_lookup_app.models import AWSVPC, AWSSubnet, AWSRouteTable,AWSEC2Instance,AWSRoute,AWSSecurityGroup,AWSSecurityGroupRule
 
 # AWSRouteTable.objects.all().delete()
 # AWSRoute.objects.all().delete()
@@ -18,47 +20,32 @@ from ip_lookup_app.models import AWSVPC, AWSSubnet, AWSRouteTable,AWSEC2Instance
 # AWSRoute.objects.all().delete()
 #
 #
-# class AWSSyncTestCase(TestCase):
-#     def test_aws_sync(self):
-#         # 记录同步前数据库中的 VPC 数量
-#         # initial_vpc_count = AWSVPC.objects.count()
-#         # # 记录同步前数据库中的子网数量
-#         # initial_subnet_count = AWSSubnet.objects.count()
-#         # print(f"initial_subnet_count ok{initial_subnet_count}")
-#         # # 记录同步前数据库中的路由表数量
-#         # initial_route_table_count = AWSRouteTable.objects.count()
-#         # print(f"initial_route_table_count{initial_route_table_count}")
-#
-#         # 调用同步函数
-#         sync_aws_data()
-#         print("complete sync")
-#         # 记录同步后数据库中的 VPC 数量
-#         # final_vpc_count = AWSVPC.objects.count()
-#         # # 记录同步后数据库中的子网数量
-#         # final_subnet_count = AWSSubnet.objects.count()
-#         # print(f'final_subnet_count{final_subnet_count}')
-#         # # 记录同步后数据库中的路由表数量
-#         # final_route_table_count = AWSRouteTable.objects.count()
-#         # print(f'final_route_table_count{final_route_table_count}')
-#
-#         # 验证同步后 VPC 数量是否增加
-#         # self.assertTrue(final_vpc_count >= initial_vpc_count, "VPC count did not increase after sync")
-#         # # 验证同步后子网数量是否增加
-#         # self.assertTrue(final_subnet_count >= initial_subnet_count, "Subnet count did not increase after sync")
-#         # # 验证同步后路由表数量是否增加
-#         # self.assertTrue(final_route_table_count >= initial_route_table_count, "Route table count did not increase after sync")
-#
-# #
-if __name__ == '__main__':
-    AWSEC2Instance.objects.all().delete()
-    AWSSecurityGroup.objects.all().delete()
-    AWSSecurityGroupRule.objects.all().delete()
 
-    print("delete done")
-    import time
-    time.sleep(4)
-    sync_aws_data()
-    print("complete sync")
+
+
+if __name__ == '__main__':
+    # AWSEC2Instance.objects.all().delete()
+    # AWSVPC.objects.all().delete()
+    # AWSSubnet.objects.all().delete()
+    # AWSRoute.objects.all().delete()
+    # AWSSecurityGroup.objects.all().delete()
+    # AWSSecurityGroupRule.objects.all().delete()
+    # AWSRouteTable.objects.all().delete()
+    syncer = SyncAws()
+    # # syncer.sync_ec2()  # 单独同步EC2
+    # # syncer.sync_vpcs()  # 单独同步VPC
+    # # syncer.sync_subnets() # 单独同步subnets
+    # # syncer.sync_route_table() # 单独同步route_table
+    # # syncer.security_group_rules() # 单独同步安全组及安全组规则
+    # # syncer.sync_elastic_ips()
+    # syncer.sync_vpc_endpoints()
+    syncer.sync_load_balancing()
+
+
+
+    # for region in AWS_REGIONS:
+    #     sync_manager = AWSSyncManager(region)
+    #     sync_manager.sync_all()
 # #
 # # # #
 
@@ -114,7 +101,7 @@ if __name__ == '__main__':
 # from ip_lookup_app.models import AWSSubnet, AzureSubnet
 # import ipaddress
 #
-# # 检查 AWS 子网的 CIDR 格式
+# # 检查 tasks 子网的 CIDR 格式
 # for subnet in AWSSubnet.objects.all():
 #     try:
 #         ipaddress.ip_network(subnet.ipv4_cidr, strict=False)
