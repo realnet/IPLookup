@@ -6,22 +6,56 @@ $(document).ready(function () {
     // 点击菜单项加载 Target Groups
     $("#menu-target-groups").click(function (e) {
         e.preventDefault();
-        loadTargetGroups();
+        showTargetGroupsPage();  // 在 #main-content 中插入/重建页面
+        loadTargetGroups();      // 加载数据
     });
 
-    function loadTargetGroups() {
-        const welcomeSection = $("#welcome-section");
-        const targetGroupsContainer = $("#target-groups-container");
-
-        console.log("targetGroupsContainer 是否存在:", targetGroupsContainer.length > 0);
-
-        if (welcomeSection.length) welcomeSection.hide();
-        if (targetGroupsContainer.length) {
-            targetGroupsContainer.show();
-        } else {
-            console.error("无法找到 #target-groups-container");
+    /**
+     * 在 #main-content 中插入一个新的 “Target Groups” 页面容器
+     * 以便不与其他页面内容堆叠。
+     */
+    function showTargetGroupsPage() {
+        // 1. 清空 main-content
+        const mainContent = $("#main-content");
+        if (mainContent.length === 0) {
+            console.error("未找到 #main-content，无法插入 Target Groups 页面。");
             return;
         }
+        mainContent.empty(); // 移除之前的内容（例如其他页面）
+
+        // 2. 插入 Target Groups 容器
+        mainContent.append(`
+            <div id="target-groups-page">
+                <h2>Target Groups</h2>
+                <table id="tg-table" class="tg-table" border="1" style="width:100%; border-collapse:collapse;">
+                    <thead>
+                        <tr>
+                            <th style="padding:6px 8px;background:#f0f0f0;">Target Group Name</th>
+                            <th style="padding:6px 8px;background:#f0f0f0;">Protocol</th>
+                            <th style="padding:6px 8px;background:#f0f0f0;">Port</th>
+                            <th style="padding:6px 8px;background:#f0f0f0;">Target Type</th>
+                            <th style="padding:6px 8px;background:#f0f0f0;">VPC ID</th>
+                            <th style="padding:6px 8px;background:#f0f0f0;">Load Balancer</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tg-table-body">
+                        <!-- JS 动态填充 -->
+                    </tbody>
+                </table>
+                <div id="pagination-container" style="margin-top:10px; text-align:center;"></div>
+
+                <!-- 详情容器 -->
+                <div id="tg-detail-container" style="margin-top:20px; border:1px solid #ccc; padding:10px; display:none;">
+                </div>
+            </div>
+        `);
+    }
+
+    /**
+     * AJAX 加载 Target Groups 数据
+     */
+    function loadTargetGroups() {
+        console.log("开始加载 Target Groups 数据...");
 
         $.ajax({
             url: "/api/aws/target-groups/",
@@ -47,35 +81,42 @@ $(document).ready(function () {
         });
     }
 
+    /**
+     * 渲染表格 + 分页
+     */
     function renderTable() {
         const tableBody = $("#tg-table-body");
         tableBody.empty();
 
         if (allTargetGroups.length === 0) {
             tableBody.append("<tr><td colspan='6'>暂无数据</td></tr>");
+            updatePagination();
             return;
         }
 
+        // 分页
         const start = (currentPage - 1) * pageSize;
         const end = start + pageSize;
         const paginatedData = allTargetGroups.slice(start, end);
 
+        // 填充
         paginatedData.forEach(tg => {
             const row = `
                 <tr data-id="${tg.id}">
-                    <td class="tg-name" style="cursor:pointer;color:#09853c;text-decoration:underline;">
+                    <td class="tg-name" style="cursor:pointer;color:#09853c;text-decoration:underline;padding:6px 8px;">
                         ${tg.name}
                     </td>
-                    <td>${tg.protocol}</td>
-                    <td>${tg.port}</td>
-                    <td>${tg.target_type}</td>
-                    <td>${tg.vpc_id}</td>
-                    <td>${tg.load_balancer_name || 'N/A'}</td>
+                    <td style="padding:6px 8px;">${tg.protocol}</td>
+                    <td style="padding:6px 8px;">${tg.port}</td>
+                    <td style="padding:6px 8px;">${tg.target_type}</td>
+                    <td style="padding:6px 8px;">${tg.vpc_id}</td>
+                    <td style="padding:6px 8px;">${tg.load_balancer_name || 'N/A'}</td>
                 </tr>
             `;
             tableBody.append(row);
         });
 
+        // 点击行 => 加载详情
         $(".tg-name").off("click").on("click", function () {
             const tgId = $(this).closest("tr").data("id");
             loadTargetGroupDetail(tgId);
@@ -84,6 +125,9 @@ $(document).ready(function () {
         updatePagination();
     }
 
+    /**
+     * 美化分页控件
+     */
     function updatePagination() {
         const paginationContainer = $("#pagination-container");
         paginationContainer.empty();
@@ -95,41 +139,67 @@ $(document).ready(function () {
 
         const totalPages = Math.ceil(allTargetGroups.length / pageSize);
 
+        // 使用内联样式美化按钮和下拉框
         let paginationHtml = `
-            <button id="prev-page" ${currentPage === 1 ? "disabled" : ""}>上一页</button>
-            <span> 第 ${currentPage} 页 / 共 ${totalPages} 页 </span>
-            <button id="next-page" ${currentPage === totalPages ? "disabled" : ""}>下一页</button>
-            <select id="page-size-select">
-                <option value="10" ${pageSize === 10 ? "selected" : ""}>10</option>
-                <option value="20" ${pageSize === 20 ? "selected" : ""}>20</option>
-                <option value="50" ${pageSize === 50 ? "selected" : ""}>50</option>
+            <button 
+                id="prev-page" 
+                style="padding:6px 12px;font-size:14px;margin-right:8px;background-color:#007bff;color:#fff;border:none;border-radius:4px;cursor:pointer;"
+                ${currentPage === 1 ? "disabled style='background-color:#ccc;cursor:not-allowed;'" : ""}
+            >
+                Prev
+            </button>
+
+            <span style="font-size:14px;">
+                Page ${currentPage}/${totalPages}
+            </span>
+
+            <button 
+                id="next-page" 
+                style="padding:6px 12px;font-size:14px;margin-left:8px;background-color:#007bff;color:#fff;border:none;border-radius:4px;cursor:pointer;"
+                ${currentPage === totalPages ? "disabled style='background-color:#ccc;cursor:not-allowed;'" : ""}
+            >
+                Next
+            </button>
+
+            <select 
+                id="page-size-select"
+                style="padding:4px;font-size:14px;margin-left:10px;border-radius:4px;border:1px solid #ccc;"
+            >
+                <option value="10"  ${pageSize === 10  ? "selected" : ""}>10</option>
+                <option value="20"  ${pageSize === 20  ? "selected" : ""}>20</option>
+                <option value="50"  ${pageSize === 50  ? "selected" : ""}>50</option>
                 <option value="100" ${pageSize === 100 ? "selected" : ""}>100</option>
             </select>
         `;
-
         paginationContainer.append(paginationHtml);
 
-        $("#prev-page").off("click").on("click", function () {
+        // 上一页
+        $("#prev-page").off("click").on("click", function() {
             if (currentPage > 1) {
                 currentPage--;
                 renderTable();
             }
         });
 
-        $("#next-page").off("click").on("click", function () {
+        // 下一页
+        $("#next-page").off("click").on("click", function() {
             if (currentPage < totalPages) {
                 currentPage++;
                 renderTable();
             }
         });
 
-        $("#page-size-select").off("change").on("change", function () {
+        // 切换每页数量
+        $("#page-size-select").off("change").on("change", function() {
             pageSize = parseInt($(this).val());
             currentPage = 1;
             renderTable();
         });
     }
 
+    /**
+     * 加载 Target Group 详情
+     */
     function loadTargetGroupDetail(tgId) {
         $.ajax({
             url: `/api/aws/target-groups/${tgId}/`,
@@ -137,14 +207,14 @@ $(document).ready(function () {
             dataType: "json",
             success: function (tg) {
                 console.log("loadTargetGroupDetail => ", tg);
-
-                if (!tg || typeof tg!== "object") {
+                if (!tg || typeof tg !== "object") {
                     console.error("API 详情数据格式错误:", tg);
                     $("#tg-detail-container").html("<p>无法加载详情，请检查 API 响应</p>").show();
                     return;
                 }
 
-                const detailHtml = `
+                // 显示基本信息
+                let detailHtml = `
                     <h3>Target Group 详情</h3>
                     <p><strong>名称:</strong> ${tg.name}</p>
                     <p><strong>协议:</strong> ${tg.protocol}</p>
@@ -154,39 +224,40 @@ $(document).ready(function () {
                     <p><strong>负载均衡器:</strong> ${tg.load_balancer_name || 'N/A'}</p>
                 `;
 
-                $("#tg-detail-container").html(detailHtml).show();
-
-                // 显示 Target 详细信息表格
+                // 显示 Targets
                 if (tg.targets && tg.targets.length > 0) {
-                    const targetTableHtml = `
+                    detailHtml += `
                         <h3>Target 详细信息</h3>
-                        <table id="targets-table">
+                        <table id="targets-table" border="1" style="width:100%; border-collapse:collapse; margin-top:10px;">
                             <thead>
                                 <tr>
-                                    <th>ip_address</th>
-                                    <th>port</th>
-                                    <th>availability_zone</th>
-                                    <th>health_status</th>
-                                    <th>health_status_details</th>
+                                    <th style="padding:6px 8px;background:#f0f0f0;">IP 地址</th>
+                                    <th style="padding:6px 8px;background:#f0f0f0;">端口</th>
+                                    <th style="padding:6px 8px;background:#f0f0f0;">可用区</th>
+                                    <th style="padding:6px 8px;background:#f0f0f0;">健康状态</th>
+                                    <th style="padding:6px 8px;background:#f0f0f0;">健康详情</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${tg.targets.map(target => `
+                                ${tg.targets.map(t => `
                                     <tr>
-                                        <td>${target.ip_address}</td>
-                                        <td>${target.port}</td>
-                                        <td>${target.availability_zone}</td>
-                                        <td>${target.health_status}</td>
-                                        <td>${target.health_status_details}</td>
+                                        <td style="padding:6px 8px;">${t.ip_address}</td>
+                                        <td style="padding:6px 8px;">${t.port}</td>
+                                        <td style="padding:6px 8px;">${t.availability_zone}</td>
+                                        <td style="padding:6px 8px; color:${t.health_status === 'healthy' ? 'green' : 'red'}; font-weight:bold;">
+                                            ${t.health_status}
+                                        </td>
+                                        <td style="padding:6px 8px;">${t.health_status_details || ''}</td>
                                     </tr>
                                 `).join('')}
                             </tbody>
                         </table>
                     `;
-                    $("#tg-detail-container").append(targetTableHtml);
                 } else {
-                    $("#tg-detail-container").append("<p>该 Target Group 下暂无 Target 信息。</p>");
+                    detailHtml += `<p>该 Target Group 下暂无 Target 信息。</p>`;
                 }
+
+                $("#tg-detail-container").html(detailHtml).show();
             },
             error: function (xhr, status, error) {
                 console.error("加载 Target Group 详情失败:", status, error);
