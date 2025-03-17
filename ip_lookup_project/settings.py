@@ -219,3 +219,5 @@ SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_ENGINE = "django.contrib.sessions.backends.db"  # 使用数据库存储会话
 
+lark_gmail = "samirasergeeva71@gmail.com"
+lark_phone = "447392961580"
