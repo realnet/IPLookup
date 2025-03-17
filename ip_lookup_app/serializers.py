@@ -12,7 +12,26 @@
 #---------------------------
 """
 from rest_framework import serializers
-from .models import AWSVPC, AWSSubnet,AWSEC2Instance,AWSLoadBalancer,AWSTargetGroup,AWSListenerAndRule, AWSTarget,Route53Record,AWSSecurityGroup, AWSElasticIP, AWSRouteTable, VPCEndpoint,AzureVirtualNetwork, AzureVnet, AzureSubnet, AzureRouteTable
+from .models import (
+        AWSVPC,
+        AWSSubnet,
+        AWSEC2Instance,
+        AWSLoadBalancer,
+        AWSTargetGroup,
+        AWSListenerAndRule,
+        AWSTarget,
+        Route53Record,
+        AWSSecurityGroup,
+        AWSElasticIP,
+        AWSRouteTable,
+        VPCEndpoint,
+        AWSWAFRule,
+        AWSWAFRuleGroup,
+        AzureVirtualNetwork,
+        AzureVnet,
+        AzureSubnet,
+        AzureRouteTable
+    )
 
 class AWSEC2InstanceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -96,4 +115,21 @@ class AzureSubnetSerializer(serializers.ModelSerializer):
 class AzureRouteTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = AzureRouteTable
+        fields = '__all__'
+
+
+class AWSWAFRuleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AWSWAFRule
+        fields = '__all__'
+        # 或者只列出需要的字段，如:
+        # fields = ['id', 'name', 'priority', 'action', 'statement_json']
+
+class AWSWAFRuleGroupSerializer(serializers.ModelSerializer):
+    # 让 rule_group 里关联的 WAFRule 一并返回
+    # 假设 AWSWAFRuleGroup -> AWSWAFRule 关系 = OneToMany (ForeignKey with related_name='rules')
+    rules = AWSWAFRuleSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = AWSWAFRuleGroup
         fields = '__all__'

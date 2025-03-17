@@ -23,6 +23,7 @@ from .views import (
     AWSDataView,
     AzureDataView,
     ip_lookup_page,
+    WAFRuleGroupView,
     aws_page,
     azure_page,
     aws_sg_data,
@@ -34,7 +35,7 @@ from .views import (
 
 
 urlpatterns = [
-    # 主页面：显示 indexbak.html
+    # 主页面：显示 index.html
     path('', index_page, name='index'),
 
     # API：返回 JSON
@@ -43,6 +44,11 @@ urlpatterns = [
     # 让target group的查询比AWSDataView更早
     path('api/aws/target-groups/<int:pk>/', get_target_group_detail, name='target_group_detail'),
     path('api/aws/target-groups/', get_target_groups, name='target_groups'),
+
+    # ---------------------------
+    # 新增：WAF路由
+    # ---------------------------
+    path('api/aws/waf-rule-groups/', WAFRuleGroupView.as_view(), name='waf-rule-groups'),
 
     # tasks/Azure 数据API
     path('api/aws/<str:table>/', AWSDataView.as_view(), name='aws-data'),

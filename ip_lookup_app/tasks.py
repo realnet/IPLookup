@@ -16,6 +16,7 @@ import boto3
 from celery import shared_task
 from celery.exceptions import MaxRetriesExceededError
 from public.tasks.sync_aws import SyncAws
+from public.tasks.sync_aws_wafv2 import SyncAwsWafv2
 from public.utils.aws import get_route53_client
 from ip_lookup_app.models import Route53Record
 from ip_lookup_app.redis_utils import update_task_status
@@ -94,6 +95,7 @@ def sync_aws_data(self):
     自动重试 3 次，每次间隔 60 秒
     """
     sync_aws = SyncAws()
+    sync_aws_waf = SyncAwsWafv2()
 
     try:
         logger.info("Starting AWS EC2 sync...")
@@ -121,7 +123,7 @@ def sync_aws_data(self):
         logger.info("AWS Elastic IP sync complete.")
 
         logger.info("Starting AWS Endpoint sync...")
-        sync_aws.sync_vpc_endpoints()  # 新增同步 EIP
+        sync_aws.sync_vpc_endpoints()  # 新增同步 EP
         logger.info("AWS Endpoint sync complete.")
 
         logger.info("Starting AWS route53 sync...")
@@ -129,8 +131,12 @@ def sync_aws_data(self):
         logger.info("AWS route53 sync complete.")
 
         logger.info("Starting AWS Load Balancer sync...")
-        sync_aws.sync_load_balancing()  # 新增同步 route53
+        sync_aws.sync_load_balancing()  # 新增同步 lb
         logger.info("AWS  Load Balancer sync complete.")
+
+        logger.info("Starting AWS Wafv2 sync...")
+        sync_aws_waf.sync_waf_rule_groups()  # 新增同步 waf
+        logger.info("AWS Wafv2 sync complete.")
 
     except MaxRetriesExceededError:
         logger.error("Max retries reached for sync_aws_data task.", exc_info=True)

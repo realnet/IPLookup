@@ -10072,3 +10072,79 @@ Watching for file changes with StatReloader
 Not Found: /favicon.ico
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Checking EC2 instances...
+No EC2 match found. Checking tasks subnets...
+No match found in EC2 or tasks subnets.
+Not Found: /api/ip-lookup/
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Not Found: /api/ip-lookup/
+Not Found: /favicon.ico
+Not Found: /ip-lookup/
+Not Found: /api/ip-lookup/
+Internal Server Error: /api/ip-lookup/10.224.225.14
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Program Files\Python39\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Program Files\Python39\lib\contextlib.py", line 79, in inner
+    return func(*args, **kwds)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\utils\decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+TypeError: get() got an unexpected keyword argument 'ip'
+Watching for file changes with StatReloader
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\config.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /api/ip-lookup/
+Not Found: /api/ip-lookup/
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\config.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\config.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\ip_lookup_app\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Bad Request: /api/aws/waf-rule-groups/
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /api/ip-lookup/
+Not Found: /api/ip-lookup/
+Not Found: /api/ip-lookup/
+Not Found: /api/ip-lookup/
+Not Found: /api/ip-lookup/
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Checking EC2 instances...
+Found EC2 match: {'cloud': 'tasks', 'type': 'EC2', 'instance_id': 'i-0f87cb0868bf7036b', 'instance_name': 'FG-P-EC2-HK02', 'private_ips': ['10.225.227.30', '10.225.226.254', '10.225.227.14', '10.225.226.126'], 'public_ips': ['16.163.118.223'], 'vpc_id': 'vpc-04a36e32ad9c9b322', 'vpc_name': 'int', 'subnet_id': 'subnet-0eb5c1628f9f0cf31', 'subnet_name': 'subnet-0eb5c1628f9f0cf31', 'subnet_cidr': '10.225.226.0/25', 'security_groups': ['sg-084895f98b69bbe88'], 'instance_type': 'c5.xlarge', 'state': 'running', 'region': 'ap-east-1', 'security_groups_detail': [{'group_id': 'sg-084895f98b69bbe88', 'group_name': 'HK-P-NSG-FG-INT-WAN', 'vpc_id': 'vpc-04a36e32ad9c9b322', 'description': 'FortigateSecGrpWan', 'owner': '876648144587', 'inbound_rules': [{'ip_protocol': 'tcp', 'from_port': 60002, 'to_port': 60002, 'source': '0.0.0.0/0', 'rule_type': 'Custom', 'rule_description': 'Temp'}, {'ip_protocol': '-1', 'from_port': None, 'to_port': None, 'source': '10.0.0.0/8', 'rule_type': 'All Traffic', 'rule_description': 'Allow local VPC access to FGT'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '13.228.215.163/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from GRE 2 (Singapore)'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '35.78.43.107/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from AWS Tokyo SSL Client VPN'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '52.68.235.155/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from GRE 3 (Tokyo)'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '219.143.61.130/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from Beijing ChinaTelcom'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '23.97.56.189/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from Azure Singapore'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '54.179.196.36/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from AWS Singapore SSL Client VPN'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '16.163.244.234/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from AWS HongKong SSL Client VPN'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '111.162.70.162/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from Tianjin ChinaUnicom'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '18.198.252.75/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from AWS Frankfurt SSL Client VPN'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '3.121.167.205/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from Frankfurt (Legacy)'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '18.167.179.212/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from GRE 1 (HongKong)'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '52.74.85.197/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from Singapore (Legacy)'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '13.94.37.252/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from Azure HongKong'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '15.184.254.144/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from Bahrain'}, {'ip_protocol': 'tcp', 'from_port': 8443, 'to_port': 8443, 'source': '61.50.114.186/32', 'rule_type': 'Custom', 'rule_description': 'Allow to access Fortigate from Beijing ChinaUnicom'}, {'ip_protocol': 'tcp', 'from_port': 51000, 'to_port': 51000, 'source': '0.0.0.0/0', 'rule_type': 'Custom', 'rule_description': 'FOR Sftp'}, {'ip_protocol': 'tcp', 'from_port': 443, 'to_port': 443, 'source': '0.0.0.0/0', 'rule_type': 'HTTPS', 'rule_description': 'Allow SSL Client VPN'}], 'outbound_rules': [{'ip_protocol': '-1', 'from_port': None, 'to_port': None, 'source': '0.0.0.0/0', 'rule_type': 'All Traffic', 'rule_description': None}]}]}
+Checking EC2 instances...
+Found EC2 match: {'cloud': 'tasks', 'type': 'EC2', 'instance_id': 'i-0975c81e50ea45a8c', 'instance_name': 'UDBP-P-EC2-MSG1', 'private_ips': ['10.224.104.72'], 'public_ips': [], 'vpc_id': 'vpc-0a5ddfa6b6e25a3f9', 'vpc_name': 'hub', 'subnet_id': 'subnet-08655e214895fe648', 'subnet_name': 'Hub-az1-Oper', 'subnet_cidr': '10.224.104.0/24', 'security_groups': ['sg-006ca2a714cfdf05d'], 'instance_type': 'm6i.xlarge', 'state': 'running', 'region': 'ap-southeast-1', 'security_groups_detail': [{'group_id': 'sg-006ca2a714cfdf05d', 'group_name': 'SG-UDBP-P-NSG', 'vpc_id': 'vpc-0a5ddfa6b6e25a3f9', 'description': 'SG-UDBP-P-NSG', 'owner': '876648144587', 'inbound_rules': [{'ip_protocol': '-1', 'from_port': None, 'to_port': None, 'source': '10.0.0.0/8', 'rule_type': 'All Traffic', 'rule_description': None}], 'outbound_rules': [{'ip_protocol': '-1', 'from_port': None, 'to_port': None, 'source': '0.0.0.0/0', 'rule_type': 'All Traffic', 'rule_description': None}]}]}

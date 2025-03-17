@@ -91,10 +91,12 @@ body {
   padding: 6px 8px;
   border-radius: 4px;
   transition: background 0.3s, color 0.3s;
+  cursor: default;
 }
 .sidebar a:hover {
   color: #fff;
   background: #495057;
+  cursor: default;
 }
 
 /* 子菜单 (submenu) */

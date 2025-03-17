@@ -342,4 +342,32 @@ const awstgColumns = [
     { header: "VPC ID", field: "vpc_id" },
 ];
 
+
+// 定义 WAF Rule Groups 的列
+const wafrgColumns = [
+  { header: "Name", field: "name" },
+  { header: "RuleGroup ID", field: "rule_group_id" },
+  { header: "Scope", field: "scope" },
+  { header: "Capacity", field: "capacity" },
+  { header: "Region", field: "region" },
+  {
+    header: "Rules",
+    // 使用 render 函数, 将 rule_group 下的 rules 显示出来
+    render: (item) => {
+      if (!item.rules || item.rules.length === 0) {
+        return "No rules";
+      }
+      // 逐条列出, 展示 name/priority/action, 或更多
+      return item.rules.map(rule => {
+        return `
+          <div>
+            <strong>${rule.name}</strong>
+            (priority=${rule.priority}, action=${rule.action})
+          </div>
+        `;
+      }).join('');
+    }
+  }
+];
+
 console.log("tableLoader.js is loaded");

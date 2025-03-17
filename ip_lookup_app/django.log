@@ -7475,3 +7475,177 @@ Traceback (most recent call last):
   File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\botocore\client.py", line 1023, in _make_api_call
     raise error_class(parsed_response, operation_name)
 botocore.exceptions.ClientError: An error occurred (ExpiredToken) when calling the DescribeLoadBalancers operation: The security token included in the request is expired
+Synced Elastic IP: 13.214.103.86
+Synced Elastic IP: 13.228.215.163
+Synced Elastic IP: 13.228.63.17
+Synced Elastic IP: 13.250.184.249
+Synced Elastic IP: 18.136.148.164
+Synced Elastic IP: 18.139.121.222
+Synced Elastic IP: 18.139.74.84
+Synced Elastic IP: 18.140.214.175
+Synced Elastic IP: 52.220.142.70
+Synced Elastic IP: 52.74.85.197
+Synced Elastic IP: 54.179.196.36
+Synced Elastic IP: 16.162.7.21
+Synced Elastic IP: 16.163.118.223
+Synced Elastic IP: 16.163.244.234
+Synced Elastic IP: 16.163.68.171
+Synced Elastic IP: 18.162.248.229
+Synced Elastic IP: 18.162.74.247
+Synced Elastic IP: 18.162.93.24
+Synced Elastic IP: 18.163.169.239
+Synced Elastic IP: 18.163.86.72
+Synced Elastic IP: 18.167.179.212
+Synced Elastic IP: 35.78.43.107
+Synced Elastic IP: 52.196.131.48
+Synced Elastic IP: 52.199.237.231
+Synced Elastic IP: 52.68.235.155
+Synced Elastic IP: 18.157.173.47
+Synced Elastic IP: 18.192.60.202
+Synced Elastic IP: 18.198.252.75
+Synced Elastic IP: 3.121.167.205
+Synced Elastic IP: 3.65.252.157
+Synced Elastic IP: 15.184.254.144
+Synced Elastic IP: 15.184.28.27
+Synced Elastic IP: 16.24.20.248
+Sync VPC Endpointvpce-02bc3114a4f247a49
+Sync VPC Endpointvpce-035e731e3476b1c0d
+Sync VPC Endpointvpce-06e29686faf8359a6
+Sync VPC Endpointvpce-0d01b276c988fe4a2
+Sync VPC Endpointvpce-00fea621c0ab08140
+Sync VPC Endpointvpce-0aa6bcd89d43d1e33
+Sync VPC Endpointvpce-0af748087f7320002
+Sync VPC Endpointvpce-0927fb3b80398b95f
+Sync VPC Endpointvpce-0d7d2b6b1a4d9c347
+Sync VPC Endpointvpce-09ad54419136071c2
+Sync VPC Endpointvpce-05225770ffef0b29d
+Sync VPC Endpointvpce-0b828bc7c71aa83d9
+Sync VPC Endpointvpce-00c66ac4f109bb98e
+Sync VPC Endpointvpce-01a17888f9a2f921e
+Sync VPC Endpointvpce-031fd738a8870e127
+Sync VPC Endpointvpce-09a3c4b63026f22fd
+Sync VPC Endpointvpce-0b432f0cfba3e9043
+Sync VPC Endpointvpce-0f8c065f9a4381c3f
+Sync VPC Endpointvpce-08f2abaff8d1a3156
+Sync VPC Endpointvpce-02c4f06e6bc690b66
+Sync VPC Endpointvpce-0a56da07e0a0f32d9
+Sync VPC Endpointvpce-05345cc545a678f09
+Sync VPC Endpointvpce-07acd6e419e75da33
+Sync VPC Endpointvpce-01856c32161d11933
+Sync VPC Endpointvpce-07eaf36dc1fc6404c
+Sync VPC Endpointvpce-0bc78e28468614c30
+Sync VPC Endpointvpce-0f46d6532d13b0abc
+Sync VPC Endpointvpce-0ae3850f15edf517e
+Sync VPC Endpointvpce-0a10849779e7c9ae8
+Sync VPC Endpointvpce-0e07f96e8799f5a64
+Sync VPC Endpointvpce-0b091782ef92d9936
+Sync VPC Endpointvpce-01a12b275022b4ab2
+Sync VPC Endpointvpce-0926f89456ce4fb75
+Sync VPC Endpointvpce-070baea777cc5a096
+Sync VPC Endpointvpce-0361b930cfb475834
+Sync VPC Endpointvpce-03f45f30fec408260
+Sync VPC Endpointvpce-012782f64bb9eedcf
+Sync VPC Endpointvpce-0bde48489f5666a0b
+Sync VPC Endpointvpce-0a649c7a2f67f2098
+Sync VPC Endpointvpce-06dc641ebcd6bbb2a
+Sync VPC Endpointvpce-0423ed067fefbeb14
+Sync VPC Endpointvpce-09527fefc1a165dce
+Sync VPC Endpointvpce-0d2b2e36552f2866b
+Sync VPC Endpointvpce-0661b3528eeeb59e0
+Sync VPC Endpointvpce-025d0b89b1eb42180
+Sync VPC Endpointvpce-0fa58345b22e6789e
+Sync VPC Endpointvpce-04a3eee2143585309
+Sync VPC Endpointvpce-05e474ec8fd8d5af7
+Sync VPC Endpointvpce-08a3960fc631f434b
+Sync VPC Endpointvpce-01d032b87c817b40e
+Sync VPC Endpointvpce-053debd1dfc6ac163
+Sync VPC Endpointvpce-07ffad858572d0315
+Sync VPC Endpointvpce-02c560eadece5518e
+Failed to fetch Load Balancers for ap-southeast-1: 'EC2' object has no attribute 'describe_load_balancers'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 498, in sync_load_balancing
+    load_balancers = elbv2.describe_load_balancers()
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\botocore\client.py", line 922, in __getattr__
+    raise AttributeError(
+AttributeError: 'EC2' object has no attribute 'describe_load_balancers'
+Failed to fetch Load Balancers for ap-east-1: 'EC2' object has no attribute 'describe_load_balancers'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 498, in sync_load_balancing
+    load_balancers = elbv2.describe_load_balancers()
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\botocore\client.py", line 922, in __getattr__
+    raise AttributeError(
+AttributeError: 'EC2' object has no attribute 'describe_load_balancers'
+Failed to fetch Load Balancers for ap-northeast-1: 'EC2' object has no attribute 'describe_load_balancers'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 498, in sync_load_balancing
+    load_balancers = elbv2.describe_load_balancers()
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\botocore\client.py", line 922, in __getattr__
+    raise AttributeError(
+AttributeError: 'EC2' object has no attribute 'describe_load_balancers'
+Failed to fetch Load Balancers for eu-central-1: 'EC2' object has no attribute 'describe_load_balancers'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 498, in sync_load_balancing
+    load_balancers = elbv2.describe_load_balancers()
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\botocore\client.py", line 922, in __getattr__
+    raise AttributeError(
+AttributeError: 'EC2' object has no attribute 'describe_load_balancers'
+Failed to fetch Load Balancers for me-south-1: 'EC2' object has no attribute 'describe_load_balancers'
+Traceback (most recent call last):
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\public\tasks\sync_aws.py", line 498, in sync_load_balancing
+    load_balancers = elbv2.describe_load_balancers()
+  File "C:\Users\vendor.x.zhang\PycharmProjects\cloud_automation\venv\lib\site-packages\botocore\client.py", line 922, in __getattr__
+    raise AttributeError(
+AttributeError: 'EC2' object has no attribute 'describe_load_balancers'
+Start syncing WAF Rule Groups in region=ap-southeast-1, scope=REGIONAL
+Created WAF Rule Group: AWSIN-FAC-TokenPush (ID=b812459d-231e-47ac-970e-8ded32673adb)
+Start syncing WAF Rule Groups in region=ap-southeast-1, scope=REGIONAL
+Created WAF Rule Group: AWSIN-FAC-TokenPush (ID=b812459d-231e-47ac-970e-8ded32673adb)
+Synced 2 rules for WAF Rule Group AWSIN-FAC-TokenPush in ap-southeast-1
+Created WAF Rule Group: FAC-ITSM (ID=16e123c9-b0ae-4af4-88ac-f393a9a7b086)
+Synced 1 rules for WAF Rule Group FAC-ITSM in ap-southeast-1
+Created WAF Rule Group: ITP-DR (ID=cecd303a-cc0d-4855-bc07-ba596b9b464c)
+Synced 1 rules for WAF Rule Group ITP-DR in ap-southeast-1
+Created WAF Rule Group: LMS-DR (ID=4ddb0bd2-ade2-44bf-884e-7f5abc524a8d)
+Synced 1 rules for WAF Rule Group LMS-DR in ap-southeast-1
+Created WAF Rule Group: SG-ISE (ID=89bc9bf8-8670-4b54-9275-a2e9a7dee847)
+Synced 1 rules for WAF Rule Group SG-ISE in ap-southeast-1
+Created WAF Rule Group: Simple-Domain-RuleSets (ID=751ce1e7-98dd-430d-921c-a2a7cfba4a4a)
+Synced 2 rules for WAF Rule Group Simple-Domain-RuleSets in ap-southeast-1
+Start syncing WAF Rule Groups in region=ap-east-1, scope=REGIONAL
+Created WAF Rule Group: Allow-Domain-RuleSets (ID=c611d291-690c-4a70-8d61-675ca0a4d96c)
+Synced 5 rules for WAF Rule Group Allow-Domain-RuleSets in ap-east-1
+Created WAF Rule Group: FortiEMS-Prod (ID=300066de-625b-4eff-966f-cebccf6315b1)
+Synced 1 rules for WAF Rule Group FortiEMS-Prod in ap-east-1
+Created WAF Rule Group: HK-ISE (ID=442a5164-1647-4a00-9a65-38ceecf0c61a)
+Synced 1 rules for WAF Rule Group HK-ISE in ap-east-1
+Created WAF Rule Group: ITP (ID=80430b93-a78d-463c-b174-1e8d12d38933)
+Synced 3 rules for WAF Rule Group ITP in ap-east-1
+Created WAF Rule Group: Jamfscep-Prod (ID=c2d7063f-4c79-42d3-a9aa-905b706921b4)
+Synced 1 rules for WAF Rule Group Jamfscep-Prod in ap-east-1
+Created WAF Rule Group: Jamfscep-Test (ID=433b2ef0-1ee6-4def-94b2-25f731825983)
+Synced 1 rules for WAF Rule Group Jamfscep-Test in ap-east-1
+Created WAF Rule Group: KYC-Prod (ID=c375a6b0-a51c-498c-a660-09f1e4b0a86a)
+Synced 1 rules for WAF Rule Group KYC-Prod in ap-east-1
+Created WAF Rule Group: KYC-UAT (ID=d3f6b34f-0e14-475f-9b95-a0f0e515ee81)
+Synced 1 rules for WAF Rule Group KYC-UAT in ap-east-1
+Created WAF Rule Group: KYCPP-Rule (ID=300451a2-7520-46ad-a055-fddd59e3771e)
+Synced 1 rules for WAF Rule Group KYCPP-Rule in ap-east-1
+Created WAF Rule Group: SAP-ARIBA-PROD (ID=d14c0697-1029-47da-84e4-de61d71438ca)
+Synced 1 rules for WAF Rule Group SAP-ARIBA-PROD in ap-east-1
+Created WAF Rule Group: SAP-ARIBA-UAT (ID=4211279a-e91a-431c-b67e-328940ee1f38)
+Synced 1 rules for WAF Rule Group SAP-ARIBA-UAT in ap-east-1
+Created WAF Rule Group: SAP-CIG-PROD (ID=ccdddfb9-71f2-4ddd-8558-99f5787d94fb)
+Synced 1 rules for WAF Rule Group SAP-CIG-PROD in ap-east-1
+Created WAF Rule Group: SAP-CIG-UAT (ID=8f4acc00-03de-4b71-9c88-b5eba3790e69)
+Synced 1 rules for WAF Rule Group SAP-CIG-UAT in ap-east-1
+Created WAF Rule Group: informationdisclosure-Prod (ID=924bb74f-5228-4131-b1c5-a84030a89559)
+Synced 1 rules for WAF Rule Group informationdisclosure-Prod in ap-east-1
+Created WAF Rule Group: lms-Test (ID=afd037bf-c1c7-4d36-a9bc-54f8997dace8)
+Synced 1 rules for WAF Rule Group lms-Test in ap-east-1
+Created WAF Rule Group: net-fac (ID=0213821d-59d2-49cf-a869-dd7c03431d9d)
+Synced 3 rules for WAF Rule Group net-fac in ap-east-1
+Start syncing WAF Rule Groups in region=ap-northeast-1, scope=REGIONAL
+Start syncing WAF Rule Groups in region=eu-central-1, scope=REGIONAL
+Created WAF Rule Group: FF-P-RG-01 (ID=771409b2-19f9-4889-9d53-eaf5a65c30c8)
+Synced 1 rules for WAF Rule Group FF-P-RG-01 in eu-central-1
+Start syncing WAF Rule Groups in region=me-south-1, scope=REGIONAL

@@ -207,6 +207,29 @@ class AWSTarget(models.Model):
         return f"{self.ip_address}:{self.port} ({self.health_status})"
 
 
+class AWSWAFRuleGroup(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
+    rule_group_id = models.CharField(max_length=100, unique=True)
+    scope = models.CharField(max_length=20, default="REGIONAL")  # or CLOUDFRONT
+    capacity = models.IntegerField(blank=True, null=True)
+    region = models.CharField(max_length=50, default="unknown")
+
+    def __str__(self):
+        return f"{self.name} ({self.rule_group_id})"
+
+class AWSWAFRule(models.Model):
+    rule_group = models.ForeignKey(AWSWAFRuleGroup, on_delete=models.CASCADE, related_name='rules')
+    name = models.CharField(max_length=200)
+    priority = models.IntegerField()
+    action = models.CharField(max_length=50, blank=True, null=True)
+    statement_json = models.JSONField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.name} (priority={self.priority})"
+
+
+
 # Azure模型
 class AzureVirtualNetwork(models.Model):
     name = models.CharField(max_length=255)

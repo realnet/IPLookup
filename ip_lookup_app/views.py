@@ -3,10 +3,10 @@ import ipaddress
 from django.shortcuts import render,redirect
 from .models import AWSSubnet, AWSRouteTable, AWSEC2Instance, VPCEndpoint, AWSSecurityGroup, Route53Record, \
     AWSTargetGroup, AWSLoadBalancer, AWSListenerAndRule, AWSVPC, AWSElasticIP, AzureSubnet, AzureRouteTable, \
-    AzureVirtualNetwork, AzureVnet, AWSTarget
+    AzureVirtualNetwork, AzureVnet, AWSTarget, AWSWAFRule, AWSWAFRuleGroup
 from .serializers import AWSSubnetSerializer, AWSVpcEndpointSerializer, AWSEC2InstanceSerializer, \
     AWSRoute53RecordSerializer, AWSLoadBalancerSerializer, AWSTargetGroupSerializer, AWSListenerAndRuleSerializer, \
-    AWSElasticIPSerializer, AWSSecurityGroupSerializer, AWSRouteTableSerializer, AWSVPCSerializer, \
+    AWSElasticIPSerializer, AWSSecurityGroupSerializer, AWSRouteTableSerializer, AWSWAFRuleGroupSerializer, AWSWAFRuleSerializer, AWSVPCSerializer, \
     AzureSubnetSerializer, AzureRouteTableSerializer, AzureVirtualNetworkSerializer, AzureVnetSerializer, \
     AWSTargetSerializer
 from django.http import JsonResponse
@@ -32,6 +32,23 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(csrf_exempt, name='dispatch')
 class IPLookupView(APIView):
+    @swagger_auto_schema(
+        operation_description="Lookup IP or range in tasks environment",
+        manual_parameters=[
+            openapi.Parameter(
+                'ip',
+                openapi.IN_QUERY,
+                description="IP address or range to search (e.g. 10.0.0.0/24)",
+                type=openapi.TYPE_STRING,
+                required=True
+            )
+        ],
+        responses={
+            200: 'OK',
+            400: 'Invalid IP or missing parameter',
+            404: 'IP not found'
+        }
+    )
     def get(self, request):
         ip = request.query_params.get('ip')
         # 如果没有 ip => 返回 JSON 错误, 而不是渲染模板
@@ -637,3 +654,35 @@ def get_target_group_detail(request, pk):
     }
     return JsonResponse(data)
 
+
+class WAFRuleGroupView(APIView):
+    """
+    获取全部WAF Rule Groups，或通过 ?rule_group_id=xxx 过滤
+    """
+
+    @swagger_auto_schema(
+        operation_description="List all WAF Rule Groups or filter by rule_group_id",
+        manual_parameters=[
+            openapi.Parameter(
+                'rule_group_id',
+                openapi.IN_QUERY,
+                description="Filter by specific rule_group_id",
+                type=openapi.TYPE_STRING,
+                required=False
+            )
+        ],
+        responses={
+            200: 'OK'
+        }
+    )
+    def get(self, request):
+        from ip_lookup_app.models import AWSWAFRuleGroup
+        from ip_lookup_app.serializers import AWSWAFRuleGroupSerializer
+
+        rg_id = request.query_params.get('rule_group_id')
+        qs = AWSWAFRuleGroup.objects.all()
+        if rg_id:
+            qs = qs.filter(rule_group_id=rg_id)
+
+        serializer = AWSWAFRuleGroupSerializer(qs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
