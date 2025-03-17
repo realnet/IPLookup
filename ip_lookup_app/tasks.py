@@ -17,6 +17,8 @@ from celery import shared_task
 from celery.exceptions import MaxRetriesExceededError
 from public.tasks.sync_aws import SyncAws
 from public.tasks.sync_aws_wafv2 import SyncAwsWafv2
+from public.tasks.sync_aws_elbv2 import SyncAwsElbv2
+from public.tasks.sync_aws_route53 import SyncAwsRoute53
 from public.utils.aws import get_route53_client
 from ip_lookup_app.models import Route53Record
 from ip_lookup_app.redis_utils import update_task_status
@@ -96,6 +98,8 @@ def sync_aws_data(self):
     """
     sync_aws = SyncAws()
     sync_aws_waf = SyncAwsWafv2()
+    sync_aws_elb = SyncAwsElbv2()
+    sync_aws_dns = SyncAwsRoute53()
 
     try:
         logger.info("Starting AWS EC2 sync...")
@@ -127,11 +131,11 @@ def sync_aws_data(self):
         logger.info("AWS Endpoint sync complete.")
 
         logger.info("Starting AWS route53 sync...")
-        sync_aws.sync_route53_records()  # 新增同步 route53
+        sync_aws_dns.sync_route53_records()  # 新增同步 route53
         logger.info("AWS route53 sync complete.")
 
         logger.info("Starting AWS Load Balancer sync...")
-        sync_aws.sync_load_balancing()  # 新增同步 lb
+        sync_aws_elb.sync_load_balancing()  # 新增同步 lb
         logger.info("AWS  Load Balancer sync complete.")
 
         logger.info("Starting AWS Wafv2 sync...")
